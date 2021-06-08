@@ -1,0 +1,11 @@
+version: '3'
+services:
+  vnstat-dashboard:
+    build: .
+    network_mode: "host"
+    container_name: vnstat-dashboard
+    volumes:
+          - /var/lib/vnstat:/var/lib/vnstat
+          - /usr/bin/vnstat:/usr/local/bin/vnstat
+          - /etc/localtime:/etc/localtime:ro
+          - /var/run/docker.sock:/var/run/docker.sock
