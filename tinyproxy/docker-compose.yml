@@ -1,0 +1,10 @@
+version: "3"
+services:
+  tinyproxy:
+    image: stilleshan/tinyproxy
+    container_name: tinyproxy
+    ports:
+      - 8888:8888
+    # volumes:
+    #   - ./tinyproxy.conf:/etc/tinyproxy/tinyproxy.conf
+    restart: always
