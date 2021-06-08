@@ -1,0 +1,13 @@
+version: "3"
+services:
+  goproxy:
+    image: stilleshan/goproxy
+    container_name: goproxy
+    network_mode: host
+    restart: always
+    command: 
+      - sh
+      - -c
+      - |
+          /proxy http -p :11111 &
+          /proxy socks -p :22222
