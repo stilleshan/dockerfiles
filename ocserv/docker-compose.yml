@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  ocserv:
+    image: stilleshan/ocserv
+    container_name: ocserv
+    # hostname: www.example.com
+    ports:
+      - 44443:443
+      - 44443:443/udp
+    # volumes:
+    #   - ./ocpasswd:/etc/ocserv/ocpasswd
+    #   - ./ocserv.conf:/etc/ocserv/ocserv.conf
+    sysctls:
+    - net.ipv4.ip_forward=1
+    cap_add:
+    - NET_ADMIN
+    security_opt:
+    - no-new-privileges
+    restart: always
