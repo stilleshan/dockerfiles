@@ -1,0 +1,25 @@
+matrix:
+  include: 
+  - language: go
+    go:
+      - 1.11.x
+    env:
+      - GO111MODULE=on
+    script: make
+    cache:
+      directories:
+        - $GOPATH/pkg/mod
+        - $HOME/.cache/go-build
+  - language: node_js
+    node_js: 
+      - "10"
+    before_install: cd packages/ga
+    install: yarn install
+    script:
+      - yarn test
+      - yarn build
+      - yarn size
+    cache:
+      yarn: true
+      directories:
+        - packages/ga/node_modules

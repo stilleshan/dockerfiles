@@ -1,0 +1,8 @@
+version: "3.3"
+services: 
+  proxy:
+    image: giuem/ga-proxy
+    restart: always
+    ports: 
+      - 9080:80
+    

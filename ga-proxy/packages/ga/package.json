@@ -1,0 +1,37 @@
+{
+  "name": "@giuem/ga-proxy",
+  "version": "1.2.0",
+  "main": "dist/ga.min.js",
+  "repository": "git@github.com:giuem/ga-proxy.git",
+  "author": "giuem <giuemcom@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "gulp build",
+    "test": "npm run lint",
+    "lint": "eslint ./src/**/*.js",
+    "size": "bundlesize"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "bundlesize": "^0.17.1",
+    "eslint": "^5.13.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "gulp": "^4.0.0",
+    "gulp-buble": "^0.9.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.1",
+    "prettier": "^1.16.4"
+  },
+  "resolutions": {
+    "gulp-buble/buble": "0.19.6"
+  },
+  "bundlesize": [
+    {
+      "path": "./dist/*.min.js",
+      "maxSize": "1kb"
+    }
+  ]
+}
