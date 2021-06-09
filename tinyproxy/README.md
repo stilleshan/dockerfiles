@@ -1,6 +1,6 @@
-# tinyproxy for docker
+# tinyproxy
 
-GitHub [stilleshan/dockerfile](https://github.com/stilleshan/dockerfile)  
+GitHub [stilleshan/dockerfiles](https://github.com/stilleshan/dockerfiles)  
 Docker [stilleshan/tinyproxy](https://hub.docker.com/r/stilleshan/tinyproxy)
 > *docker image support for X86 and ARM*
 
@@ -10,7 +10,7 @@ docker run -d --name tinyproxy --restart always -p 8888:8888 stilleshan/tinyprox
 ```
 
 ## docker compose 启动
-下载 [docker-compose.yml](https://raw.githubusercontent.com/stilleshan/dockerfile/main/tinyproxy/docker-compose.yml) 执行以下命令启动:
+下载 [docker-compose.yml](https://raw.githubusercontent.com/stilleshan/dockerfiles/main/tinyproxy/docker-compose.yml) 执行以下命令启动:
 ```shell
 docker-compose up -d
 ```
@@ -34,3 +34,7 @@ docker run -d --name tinyproxy --restart always -p 8888:8888 -v /path/tinyproxy.
 ```shell
 curl -x https://user:password@IP:8888 https://ifconfig.co
 ```
+
+## 参考
+[轻量级 HTTP/HTTPS 代理软件 Tinyproxy docker 部署教程](https://www.ioiox.com/archives/130.html)
+

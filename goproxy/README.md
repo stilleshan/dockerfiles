@@ -1,6 +1,6 @@
-# goproxy for docker
+# goproxy
 
-GitHub [stilleshan/dockerfile](https://github.com/stilleshan/dockerfile)  
+GitHub [stilleshan/dockerfiles](https://github.com/stilleshan/dockerfiles)  
 Docker [stilleshan/goproxy](https://hub.docker.com/r/stilleshan/goproxy)
 > *docker image support for X86 and ARM*
 
@@ -24,8 +24,12 @@ docker run -d --name goproxy --restart always --network host stilleshan/goproxy 
 > *更多服务参考 [snail007/goproxy](https://github.com/snail007/goproxy) 自行添加命令,每项服务命令之间使用 **&** 符号分隔,最后一项服务命令末尾无需 **&** 符号.*
 
 ## docker compose 启动
-下载 [docker-compose.yml](https://raw.githubusercontent.com/stilleshan/dockerfile/main/goproxy/docker-compose.yml) 执行以下命令启动:
+下载 [docker-compose.yml](https://raw.githubusercontent.com/stilleshan/dockerfiles/main/goproxy/docker-compose.yml) 执行以下命令启动:
 ```shell
 docker-compose up -d
 ```
 > *更多服务参考 [snail007/goproxy](https://github.com/snail007/goproxy) 自行添加命令,每项服务命令之间使用 **&** 符号分隔,最后一项服务命令末尾无需 **&** 符号.*
+
+## 参考
+[轻量级高性能 HTTP/HTTPS SOCKS5 代理软件 goproxy docker 部署教程](https://www.ioiox.com/archives/131.html)
+
