@@ -1,0 +1,31 @@
+{"servers":
+ [
+  {
+   "username": "1",
+   "password": "1",
+   "name": "腾讯云-上海",
+   "type": "KVM",
+   "host": "None",
+   "location": "CN",
+   "disabled": false
+  },
+  {
+   "username": "2",
+   "password": "2",
+   "name": "阿里云-香港",
+   "type": "KVM",
+   "host": "None",
+   "location": "HK",
+   "disabled": false
+  },
+  {
+   "username": "3",
+   "password": "3",
+   "name": "谷歌云-日本",
+   "type": "KVM",
+   "host": "None",
+   "location": "JP",
+   "disabled": false
+  }
+ ]
+}
