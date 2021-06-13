@@ -8,3 +8,4 @@ services:
     # volumes:
     #   - ./tinyproxy.conf:/etc/tinyproxy/tinyproxy.conf
     restart: always
+

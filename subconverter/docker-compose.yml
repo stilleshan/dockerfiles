@@ -1,0 +1,9 @@
+version: "3"
+services:
+  subconverter:
+    image: stilleshan/subconverter
+    container_name: subconverter
+    ports:
+      - 25500:25500
+    restart: always
+

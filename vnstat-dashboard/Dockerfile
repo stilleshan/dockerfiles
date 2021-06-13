@@ -1,7 +1,7 @@
 FROM php:7.0-apache
 MAINTAINER Alex Marston <alexander.marston@gmail.com>
 
-ENV VERSION 1.0
+ENV VERSION 2021-06-13
 # Install Git
 RUN apt-get update && apt-get install -y git unzip
 

@@ -1,0 +1,9 @@
+version: "3"
+services:
+  gh-proxy:
+    image: stilleshan/gh-proxy
+    container_name: gh-proxy
+    ports:
+      - 12345:80
+    restart: always
+

@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb
+#    container_name: mariadb
+    volumes:
+      - ./database:/var/lib/mysql:rw
+    restart: always
+    networks:
+      - private
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: database_name
+      MYSQL_USER: database_user
+      MYSQL_PASSWORD: database_password
+      TZ: Asia/Shanghai
+
+  chevereto:
+    depends_on:
+      - db
+    image: stilleshan/chevereto
+#    container_name: chevereto
+    restart: always
+    networks:
+      - private
+    environment:
+      CHEVERETO_DB_HOST: db
+      CHEVERETO_DB_USERNAME: database_user
+      CHEVERETO_DB_PASSWORD: database_password
+      CHEVERETO_DB_NAME: database_name
+      CHEVERETO_DB_PREFIX: chv_
+      TZ: Asia/Shanghai
+    volumes:
+      - ./images:/var/www/html/images:rw
+      - ./php.ini:/usr/local/etc/php/php.ini:ro
+    ports:
+      - 12345:80
+
+networks:
+  private:
+

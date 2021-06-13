@@ -19,4 +19,3 @@ COPY --from=builder /usr/local/ServerStatus/web /usr/share/nginx/html/
 EXPOSE 80 35601
 
 CMD nohup sh -c '/etc/init.d/nginx start && /ServerStatus/server/sergate --config=/ServerStatus/server/config.json --web-dir=/usr/share/nginx/html'
-

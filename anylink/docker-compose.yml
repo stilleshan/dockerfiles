@@ -1,0 +1,13 @@
+version: "3"
+services:
+  anylink:
+    image: stilleshan/anylink
+    container_name: anylink
+    privileged: true
+    ports:
+      - 443:443
+      - 8080:8800
+    volumes:
+      - ./app/conf:/app/conf
+    restart: always
+

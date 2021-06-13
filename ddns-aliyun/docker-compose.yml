@@ -1,0 +1,12 @@
+version: "3"
+services:
+  ddns-aliyun:
+    image: stilleshan/ddns-aliyun
+    container_name: ddns-aliyun
+    environment:
+      - AKID=AccessKey-ID
+      - AKSCT=AccessKey-Secret
+      - DOMAIN=ddns.yourdomain.com
+      - REDO=600
+    restart: always
+

@@ -1,7 +1,7 @@
 FROM alpine:latest AS builder
 
 WORKDIR /root
-ENV VERSION 20210529
+ENV VERSION 2021-06-13
 
 RUN apk add --no-cache git make build-base && \
     git clone --branch master --single-branch https://github.com/Wind4/vlmcsd.git && \

@@ -1,8 +1,10 @@
 version: "3.3"
 services: 
-  proxy:
-    image: giuem/ga-proxy
+  ga-proxy:
+    image: stilleshan/ga-proxy
+    container_name: ga-proxy
+    ports:
+      - 12345:80
     restart: always
-    ports: 
-      - 9080:80
+
     

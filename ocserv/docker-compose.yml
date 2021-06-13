@@ -5,8 +5,8 @@ services:
     container_name: ocserv
     # hostname: www.example.com
     ports:
-      - 44443:443
-      - 44443:443/udp
+      - 443:443
+      - 443:443/udp
     # volumes:
     #   - ./ocpasswd:/etc/ocserv/ocpasswd
     #   - ./ocserv.conf:/etc/ocserv/ocserv.conf
@@ -17,3 +17,4 @@ services:
     security_opt:
     - no-new-privileges
     restart: always
+
