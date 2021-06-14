@@ -1,0 +1,9 @@
+version: "3"
+services:
+  speedtest-x:
+    image: stilleshan/speedtest-x
+    container_name: speedtest-x
+    ports:
+      - 12345:80
+    restart: always
+
