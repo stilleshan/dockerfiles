@@ -8,8 +8,23 @@ Docker [stilleshan/v2-ui](https://hub.docker.com/r/stilleshan/v2-ui)
 整合 v2-ui 和 acme.sh 的 docker compose 一键部署方案
 - 支持全自动证书申请,定时每月续签证书.
 - 备份和迁移方便,仅需保存 v2-ui-ssl 一个目录,一条命令即可在其他服务器启动使用.
+- 支持 X86 和 ARM 架构
 
-## 部署
+## 更新
+**2021-06-17** 更新`一键安装脚本`.
+
+## 一键安装脚本部署
+- 使用一键安装脚本后无需继续参考以下`手动部署`段落.
+- 一键安装脚本依旧需要基于本服务器安装 docker 和 docker compose 环境.
+- 一键安装脚本仅限于首次使用,确保服务器之前没有使用过本仓库的`v2-ui`或`v2-ui-ssl`项目.
+- 脚本安装完毕后,会自行删除,避免误操作.
+- 脚本安装完毕后,依旧需要手动执行以下`自动更新证书`段落的操作,以便`v2-ui`定时重启使得证书生效.
+```shell
+wget https://raw.githubusercontent.com/stilleshan/dockerfiles/main/v2-ui-ssl/install.sh && chmod +x install.sh && ./install.sh
+```
+
+
+## 手动部署
 ### 下载文件
 部署所需文件已打包,方便直接下载解压使用.
 ```shell

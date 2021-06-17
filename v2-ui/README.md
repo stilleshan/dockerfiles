@@ -8,9 +8,20 @@ Docker [stilleshan/v2-ui](https://hub.docker.com/r/stilleshan/v2-ui)
 基于 [sprov065/v2-ui](https://github.com/sprov065/v2-ui) 项目的 docker 镜像.
 
 ## 更新
-**2021-06-13** 更新`5.5.2`版 docker 镜像,新增同时支持 X86 和 ARM 架构.
+- **2021-06-17** 更新`一键安装脚本`.
+- **2021-06-13** 更新`5.5.2`版 docker 镜像,新增同时支持 X86 和 ARM 架构.
 
-## 部署
+## 一键安装脚本部署
+- 使用一键安装脚本后无需继续参考以下`手动部署`段落.
+- 脚本依旧需要基于本服务器安装 docker 和 docker compose 环境.
+- 脚本仅限于首次使用,确保服务器之前没有使用过本仓库的`v2-ui`或`v2-ui-ssl`项目.
+- 脚本安装完毕后,会自行删除,避免误操作.
+- 脚本安装完毕后,依旧需要参考 [自动更新证书](https://github.com/stilleshan/dockerfiles/tree/main/v2-ui-ssl#%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%E8%AF%81%E4%B9%A6) 段落手动执行定时任务操作,以便`v2-ui`定时重启使得证书生效.
+```shell
+wget https://raw.githubusercontent.com/stilleshan/dockerfiles/main/v2-ui-ssl/install.sh && chmod +x install.sh && ./install.sh
+```
+
+## 手动部署
 ### docker
 ```shell
 docker run -d --name=v2-ui --restart=always --network=host stilleshan/v2-ui
