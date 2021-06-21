@@ -1,0 +1,10 @@
+version: "3"
+services:
+  forsaken-mail:
+    image: stilleshan/forsaken-mail
+    container_name: forsaken-mail
+    ports:
+      - 25:25
+      - 3000:3000
+    restart: always
+
