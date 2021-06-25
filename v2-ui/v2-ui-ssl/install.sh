@@ -120,7 +120,7 @@ case "$START_INPUT" in
 
 accout_conf (){
 WORK_PATH=$(dirname $(readlink -f $0))
-wget https://raw.githubusercontent.com/stilleshan/dockerfiles/main/v2-ui-ssl/v2-ui-ssl.tar
+wget https://raw.githubusercontent.com/stilleshan/dockerfiles/main/v2-ui/v2-ui-ssl/v2-ui-ssl.tar
 tar -xvf v2-ui-ssl.tar
 cat >${WORK_PATH}/v2-ui-ssl/conf/account.conf<<EOF
 export ${API_ID_HEADER}="${API_ID_INPUT}"
@@ -146,7 +146,7 @@ docker_compose_ssl (){
 
 docker_compose_nossl (){
     WORK_PATH=$(dirname $(readlink -f $0))
-    wget https://raw.githubusercontent.com/stilleshan/dockerfiles/main/v2-ui-ssl/v2-ui-ssl.tar
+    wget https://raw.githubusercontent.com/stilleshan/dockerfiles/main/v2-ui/v2-ui-ssl/v2-ui-ssl.tar
     tar -xvf v2-ui-ssl.tar
     sed -i '8d' ${WORK_PATH}/v2-ui-ssl/docker-compose.yml
     sed -i '11,20d' ${WORK_PATH}/v2-ui-ssl/docker-compose.yml

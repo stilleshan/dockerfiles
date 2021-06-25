@@ -20,7 +20,7 @@ Docker [stilleshan/v2-ui](https://hub.docker.com/r/stilleshan/v2-ui)
 - 脚本安装完毕后,会自行删除,避免误操作.
 - 脚本安装完毕后,依旧需要手动执行以下`自动更新证书`段落的操作,以便`v2-ui`定时重启使得证书生效.
 ```shell
-wget https://raw.githubusercontent.com/stilleshan/dockerfiles/main/v2-ui-ssl/install.sh && chmod +x install.sh && ./install.sh
+wget https://raw.githubusercontent.com/stilleshan/dockerfiles/main/v2-ui/v2-ui-ssl/install.sh && chmod +x install.sh && ./install.sh
 ```
 
 
@@ -28,7 +28,7 @@ wget https://raw.githubusercontent.com/stilleshan/dockerfiles/main/v2-ui-ssl/ins
 ### 下载文件
 部署所需文件已打包,方便直接下载解压使用.
 ```shell
-wget https://raw.githubusercontent.com/stilleshan/dockerfiles/main/v2-ui-ssl/v2-ui-ssl.tar
+wget https://raw.githubusercontent.com/stilleshan/dockerfiles/main/v2-ui/v2-ui-ssl/v2-ui-ssl.tar
 tar -xvf v2-ui-ssl.tar
 cd v2-ui-ssl
 ```

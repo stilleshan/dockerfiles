@@ -1,7 +1,7 @@
 name: "v2-ui docker build"
 
 env:
-  PROJECT: v2-ui
+  PROJECT: v2-ui 
 
 on:
   workflow_dispatch:
@@ -9,16 +9,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set tag
         id: tag
         run: |
-          TAG=$(cat ${{ env.PROJECT }}/Dockerfile | awk 'NR==4 {print $3}')
-          echo "::set-env name=TAG::$TAG"
+          if [[ -n $(cat ${{ env.PROJECT }}/Dockerfile | awk '{if($2~"VERSION")print $3}') ]]; then
+            VERSION=$(cat ${{ env.PROJECT }}/Dockerfile | awk '{if($2~"VERSION")print $3}')
+            echo "tag=$VERSION" >> $GITHUB_ENV
+          else
+            echo "tag=$(date +%Y)-$(date +%m)-$(date +%d)" >> $GITHUB_ENV
+          fi
       - name: Docker Hub login
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -39,4 +41,5 @@ jobs:
           --output "type=image,push=true" \
           --file ${{ env.PROJECT }}/Dockerfile ./${{ env.PROJECT }} \
           --tag $(echo "${DOCKER_USERNAME}" | tr '[:upper:]' '[:lower:]')/${{ env.PROJECT }}:latest \
-          --tag $(echo "${DOCKER_USERNAME}" | tr '[:upper:]' '[:lower:]')/${{ env.PROJECT }}:${TAG}
+          --tag $(echo "${DOCKER_USERNAME}" | tr '[:upper:]' '[:lower:]')/${{ env.PROJECT }}:${{ env.tag }}
+
