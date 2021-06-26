@@ -1,7 +1,6 @@
 FROM golang:alpine as builder
 ENV CGO_ENABLED=0 \
     GO111MODULE=on
-ENV VERSION 2021-06-11
 
 RUN apk add --update git curl
 ADD . $GOPATH/src/github.com/honwen/aliyun-ddns-cli

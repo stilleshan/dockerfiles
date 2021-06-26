@@ -1,7 +1,5 @@
 FROM php:7.4-apache
 
-
-ENV VERSION 2021-06-14
 # Install extensions
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
