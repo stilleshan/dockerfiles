@@ -1,0 +1,47 @@
+name: "docker build release"
+
+on: 
+  workflow_dispatch:
+    inputs:
+      project:
+        description: 'Project'
+        required: true
+        default: 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set tag
+        id: tag
+        run: |
+          if [[ -n $(cat ${{ github.event.inputs.project }}/Dockerfile | awk '{if($1~"ENV" && $2~"VERSION")print $3}') ]]; then
+            VERSION=$(cat ${{ github.event.inputs.project }}/Dockerfile | awk '{if($1~"ENV" && $2~"VERSION")print $3}')
+            echo "tag=$VERSION" >> $GITHUB_ENV
+          else
+            echo "tag=$(date +%Y)-$(date +%m)-$(date +%d)" >> $GITHUB_ENV
+          fi
+      - name: Docker Hub login
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          buildx-version: latest
+      - name: Build Dockerfile
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        run: |
+          docker buildx build \
+          --platform=linux/amd64,linux/arm64 \
+          --output "type=image,push=true" \
+          --file ${{ github.event.inputs.project }}/Dockerfile ./${{ github.event.inputs.project }} \
+          --tag $(echo "${DOCKER_USERNAME}" | tr '[:upper:]' '[:lower:]')/${{ github.event.inputs.project }}:latest \
+          --tag $(echo "${DOCKER_USERNAME}" | tr '[:upper:]' '[:lower:]')/${{ github.event.inputs.project }}:${{ env.tag }}
+
