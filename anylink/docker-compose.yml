@@ -7,7 +7,8 @@ services:
     ports:
       - 443:443
       - 8080:8800
-    volumes:
-      - ./app/conf:/app/conf
+    # volumes:
+    #   - ./app/conf:/app/conf
+    # command: -c=/app/conf/server.toml
     restart: always
 

@@ -8,7 +8,8 @@ Docker [stilleshan/anylink](https://hub.docker.com/r/stilleshan/anylink)
 基于 [bjdgyc/anylink](https://github.com/bjdgyc/anylink) 项目的 docker 镜像.
 
 ## 更新
-**2021-06-09** 更新`0.3.3`版 docker 镜像,新增同时支持 X86 和 ARM 架构.
+- **2021-07-05** 更新`0.4.2`版 docker 镜像.
+- **2021-06-09** 更新`0.3.3`版 docker 镜像,新增同时支持 X86 和 ARM 架构.
 
 ## 部署
 ### docker
@@ -19,7 +20,6 @@ docker run -d \
     --privileged=true \
     -p 443:443 \
     -p 8800:8800 \
-    -v /root/anylink/:/app/conf \
     stilleshan/anylink
 ```
 
