@@ -1,7 +1,7 @@
 FROM alpine
 MAINTAINER Stille <stille@ioiox.com>
 
-ENV VERSION 10.7
+ENV VERSION 10.8
 
 RUN set -xe && \
     UNAME=$(uname -m) && if [ "$UNAME" = "x86_64" ]; then export PLATFORM=amd64 ; else export PLATFORM=arm64-v8 ; fi && \
