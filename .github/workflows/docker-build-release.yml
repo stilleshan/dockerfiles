@@ -44,4 +44,10 @@ jobs:
           --file ${{ github.event.inputs.project }}/Dockerfile ./${{ github.event.inputs.project }} \
           --tag $(echo "${DOCKER_USERNAME}" | tr '[:upper:]' '[:lower:]')/${{ github.event.inputs.project }}:latest \
           --tag $(echo "${DOCKER_USERNAME}" | tr '[:upper:]' '[:lower:]')/${{ github.event.inputs.project }}:${{ env.tag }}
-
+      - name: Sync README.md
+        uses: ms-jpq/sync-dockerhub-readme@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: ${{ secrets.DOCKER_USERNAME }}/${{ github.event.inputs.project }}
+          readme: "${{ github.event.inputs.project }}/README.md"
