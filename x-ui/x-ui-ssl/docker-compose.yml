@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  x-ui:
+    image: stilleshan/x-ui
+    container_name: x-ui
+    volumes:
+      - ./data/x-ui.db:/etc/x-ui/x-ui.db
+      - ./ssl:/ssl
+    restart: always
+    network_mode: host
+
+  acme:
+    image: neilpang/acme.sh
+    container_name: acme
+    volumes:
+      - ./conf:/conf
+      - ./ssl:/ssl
+    restart: always
+    network_mode: host
+    command: ["sh", "-c", "/conf/start.sh"]

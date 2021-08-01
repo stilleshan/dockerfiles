@@ -8,7 +8,13 @@ Docker [stilleshan/x-ui](https://hub.docker.com/r/stilleshan/x-ui)
 基于 [sprov065/x-ui](https://github.com/sprov065/x-ui) 项目的 docker 镜像.
 
 ## 更新
-- **2021-08-01** 更新`0.3.1`版 docker 镜像,新增同时支持 X86 和 ARM 架构.
+- **2021-08-01** 更新`0.3.1`版 docker 镜像,同时支持 X86 和 ARM 架构.
+
+## 注意
+x-ui 还在开发测试中,如果遇到 xray 状态 为`error`,尝试切换版本即可.
+
+## x-ui-ssl 一键安装脚本部署
+一键安装脚本部署请访问子目录 [x-ui-ssl](./x-ui-ssl) 查看详情.
 
 ## x-ui 手动部署
 ### docker
