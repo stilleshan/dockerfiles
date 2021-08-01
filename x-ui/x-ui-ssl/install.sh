@@ -140,7 +140,7 @@ docker_compose_ssl (){
     cd ${WORK_PATH}
     rm -rf ${WORK_PATH}/x-ui-ssl.tar
     echo -e "${Green}部署完毕,静等 1 分钟查看 ssl 目录下是否生成证书文件.${Font}"
-    echo -e "${Green}访问 http://服务器IP:65432 使用帐号 admin 密码 admin 登陆,尽快修改帐号密码.${Font}"
+    echo -e "${Green}访问 http://服务器IP:54321 使用帐号 admin 密码 admin 登陆,尽快修改帐号密码.${Font}"
     rm $0
 }
 
@@ -156,7 +156,7 @@ docker_compose_nossl (){
     docker-compose up -d
     cd ${WORK_PATH}
     rm -rf ${WORK_PATH}/x-ui-ssl.tar
-    echo -e "${Green}部署完毕.访问 http://服务器IP:65432 使用帐号 admin 密码 admin 登陆,尽快修改帐号密码.${Font}"
+    echo -e "${Green}部署完毕.访问 http://服务器IP:54321 使用帐号 admin 密码 admin 登陆,尽快修改帐号密码.${Font}"
     rm $0
 }
 
