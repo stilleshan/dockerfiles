@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  x-ui:
+    image: ioiox/x-ui
+    container_name: x-ui
+    # volumes:
+    #   - ./x-ui.db:/etc/x-ui/x-ui.db
+    #   - ./ssl:/ssl
+    restart: always
+    network_mode: host
