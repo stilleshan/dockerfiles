@@ -1,7 +1,7 @@
 # web
 FROM node:lts-alpine as builder_node
+ENV VERSION 0.5.1
 WORKDIR /web
-ENV VERSION 0.4.2
 COPY ./web /web
 RUN npx browserslist@latest --update-db \
     && npm install \
@@ -19,7 +19,7 @@ COPY --from=builder_node /web/ui  /anylink/server/ui
 
 #TODO 本地打包时使用镜像
 #RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
-RUN apk add --no-cache git
+RUN apk add --no-cache git gcc musl-dev
 RUN cd /anylink/server;go build -o anylink -ldflags "-X main.CommitId=$(git rev-parse HEAD)" \
     && /anylink/server/anylink tool -v
 
