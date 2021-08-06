@@ -161,8 +161,8 @@ docker_compose_nossl (){
 }
 
 
-if [ ! type docker >/dev/null 2>&1 ] || [ ! type docker-compose >/dev/null 2>&1 ]; then
-    echo -e "${Red}本机未安装 docker 或 docker compose 已退出脚本.${Font}";
+if ! type docker-compose >/dev/null 2>&1 ; then
+    echo -e "${Red}本机未安装 docker compose 已退出脚本.${Font}";
     exit 0
 fi
 
