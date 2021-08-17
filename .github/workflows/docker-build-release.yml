@@ -14,6 +14,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Set tag
         id: tag
         run: |
@@ -23,17 +24,23 @@ jobs:
           else
             echo "tag=$(date +%Y)-$(date +%m)-$(date +%d)" >> $GITHUB_ENV
           fi
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
       - name: Docker Hub login
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
           echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin
+
       - name: Set up Docker Buildx
         id: buildx
         uses: crazy-max/ghaction-docker-buildx@v1
         with:
           buildx-version: latest
+
       - name: Build Dockerfile
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -44,6 +51,7 @@ jobs:
           --file ${{ github.event.inputs.project }}/Dockerfile ./${{ github.event.inputs.project }} \
           --tag $(echo "${DOCKER_USERNAME}" | tr '[:upper:]' '[:lower:]')/${{ github.event.inputs.project }}:latest \
           --tag $(echo "${DOCKER_USERNAME}" | tr '[:upper:]' '[:lower:]')/${{ github.event.inputs.project }}:${{ env.tag }}
+
       - name: Sync README.md
         uses: ms-jpq/sync-dockerhub-readme@v1
         with:
