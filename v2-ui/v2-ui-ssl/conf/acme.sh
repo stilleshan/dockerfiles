@@ -17,7 +17,8 @@ DNSAPI=$(cat /conf/account.conf | awk -F= '{if($1~"DNSAPI")print $2}')
 acme (){
     cat /conf/account.conf > /acme.sh/account.conf
     /root/.acme.sh/acme.sh --upgrade
-    /root/.acme.sh/acme.sh --issue --server letsencrypt $* --dns ${DNSAPI} -d ${DOMAIN} -d \*.${DOMAIN}
+    /root/.acme.sh/acme.sh --register-account -m your@domain.com --server zerossl
+    /root/.acme.sh/acme.sh --issue $* --dns ${DNSAPI} -d ${DOMAIN} -d \*.${DOMAIN}
     cp /acme.sh/${DOMAIN}/fullchain.cer /ssl/${DOMAIN}.cer
     cp /acme.sh/${DOMAIN}/${DOMAIN}.key /ssl/${DOMAIN}.key
     mv /acme.sh/${DOMAIN} /acme.sh/${DOMAIN}-$(date +%Y)-$(date +%m)-$(date +%d)-${RANDOM}
