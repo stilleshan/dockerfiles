@@ -118,8 +118,8 @@
 
             <el-popconfirm
                 style="margin-left: 10px"
-                @onConfirm="handleDel(scope.row)"
-                title="确定要删除用户吗？">
+                @confirm="handleDel(scope.row)"
+                title="确定要删除用户组吗？">
               <el-button
                   slot="reference"
                   size="mini"
@@ -319,7 +319,7 @@ export default {
         status: 1,
         allow_lan: true,
         client_dns: [{val: '114.114.114.114'}],
-        route_include: [],
+        route_include: [{val: 'all', note: '默认全局代理'}],
         route_exclude: [],
         link_acl: [],
       },
