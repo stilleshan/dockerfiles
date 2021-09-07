@@ -14,7 +14,7 @@ DOMAIN=$(cat /conf/account.conf | awk -F= '{if($1~"DOMAIN")print $2}')
 DNSAPI=$(cat /conf/account.conf | awk -F= '{if($1~"DNSAPI")print $2}')
 
 cat >/var/spool/cron/crontabs/root<<EOF
-0 0 1 * * /conf/acme.sh >/dev/null 2>&1
+0 0 10 * * /conf/acme.sh >/dev/null 2>&1
 EOF
 
 if [ ! -f "/ssl/${DOMAIN}.cer" ] && [ -n "${DOMAIN}" ]; then
