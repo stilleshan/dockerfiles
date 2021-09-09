@@ -1,8 +1,6 @@
 FROM stilleshan/uwsgi-nginx:python3.7
 LABEL maintainer="Sebastian Ramirez <tiangolo@gmail.com>"
 
-ENV VERSION 2.1
-
 RUN pip install flask requests
 
 COPY ./app /app

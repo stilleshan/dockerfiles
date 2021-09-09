@@ -8,7 +8,8 @@ Docker [stilleshan/gh-proxy](https://hub.docker.com/r/stilleshan/gh-proxy)
 基于 [hunshcn/gh-proxy](https://github.com/hunshcn/gh-proxy) 项目的 docker 镜像.
 
 ## 更新
-**2021-06-09** 更新`2.1`版 docker 镜像,新增同时支持 X86 和 ARM 架构.
+- **2021-09-09** 更新 docker 镜像,新增支持黑白名单功能.
+- **2021-06-09** 更新 docker 镜像,新增同时支持 X86 和 ARM 架构.
 
 ## 部署
 ### docker
