@@ -1,0 +1,11 @@
+version: "3"
+services:
+  webdav:
+    image: stilleshan/webdav
+    container_name: webdav
+    ports:
+      - "8080:8080"
+    volumes:
+      # - ./config.yml:/config.yml
+      - /data:/data
+    restart: always

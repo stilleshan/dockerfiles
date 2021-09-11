@@ -1,0 +1,30 @@
+# Server related settings
+address: 0.0.0.0
+port: 8080
+auth: true
+tls: false
+prefix: /
+
+# Default user settings (will be merged)
+scope: .
+modify: true
+rules: []
+
+# CORS configuration
+cors:
+  enabled: true
+  credentials: true
+  allowed_headers:
+    - Depth
+  allowed_hosts:
+    - http://localhost
+  allowed_methods:
+    - GET
+  exposed_headers:
+    - Content-Length
+    - Content-Range
+
+users:
+  - username: admin
+    password: admin
+    scope: /data
