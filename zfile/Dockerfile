@@ -1,7 +1,7 @@
 FROM stilleshan/alpine-openjdk-8-headless:2021-06-11
 MAINTAINER Stille <stille@ioiox.com>
 
-ENV VERSION 3.1
+ENV VERSION 3.2
 
 WORKDIR /root
 
