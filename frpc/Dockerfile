@@ -1,7 +1,7 @@
 FROM alpine:3.8
 MAINTAINER Stille <stille@ioiox.com>
 
-ENV FRP_VERSION 0.37.1
+ENV FRP_VERSION 0.38.0
 WORKDIR /
 
 RUN set -xe && \
