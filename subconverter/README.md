@@ -7,12 +7,12 @@ Docker [stilleshan/subconverter](https://hub.docker.com/r/stilleshan/subconverte
 ## 简介
 基于 [tindy2013/subconverter](https://github.com/tindy2013/subconverter) 项目的 docker 镜像.仅修改 **分组配置文件** 以解决以下问题.
 
-- **增加**`Netflix`分组
+- **增加**`Netflix，DisneyPlus`等分组.
 - **去除**`自动选择 url-test`以解决连接数爆涨问题.
-- **全球拦截** 增加`节点选择`,以满足`Google Analytics`等广告统计工具的访问需求.(新版本可能已解决此需求)
 - **修改时区** 镜像默认时区为 Asia/Shanghai
 
 ## 更新
+- **2021-12-20** 更新优化规则和分组
 - **2021-12-01** 添加`Disney+`规则分组
 - **2021-09-30** 更新`v0.7.1`版 docker 镜像
 - **2021-09-21** 更新`v0.7.0`版 docker 镜像

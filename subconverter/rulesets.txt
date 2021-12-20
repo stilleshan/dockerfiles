@@ -1,21 +1,16 @@
-🎯 全球直连,rules/LocalAreaNetwork.list
-Ⓜ️ 微软服务,rules/MSServices.list
-🎯 全球直连,rules/DivineEngine/Surge/Ruleset/Unbreak.list
-🛑 全球拦截,rules/NobyDa/Surge/AdRule.list
-🛑 全球拦截,rules/DivineEngine/Surge/Ruleset/Guard/Hijacking.list
-🎥 NETFLIX,rules/DivineEngine/Surge/Ruleset/StreamingMedia/Video/Netflix.list
-🐰 Disney+,rules/DivineEngine/Surge/Ruleset/StreamingMedia/Video/DisneyPlus.list
-🌍 国外媒体,rules/DivineEngine/Surge/Ruleset/StreamingMedia/Streaming.list
-🌏 国内媒体,rules/lhie1/Surge/Surge 3/Provider/Media/Bilibili.list
-🌏 国内媒体,rules/lhie1/Surge/Surge 3/Provider/Media/iQiyi.list
-🌏 国内媒体,rules/lhie1/Surge/Surge 3/Provider/Media/Letv.list
-🌏 国内媒体,rules/lhie1/Surge/Surge 3/Provider/Media/MOO.list
-🌏 国内媒体,rules/lhie1/Surge/Surge 3/Provider/Media/Tencent Video.list
-🌏 国内媒体,rules/lhie1/Surge/Surge 3/Provider/Media/Youku.list
-📲 电报信息,rules/DivineEngine/Surge/Ruleset/Extra/Telegram/Telegram.list
-🔰 节点选择,rules/DivineEngine/Surge/Ruleset/Global.list
-🍎 苹果服务,rules/DivineEngine/Surge/Ruleset/Extra/Apple/Apple.list
-🎯 全球直连,rules/DivineEngine/Surge/Ruleset/China.list
-🎯 全球直连,rules/NobyDa/Surge/Download.list
-🎯 全球直连,[]GEOIP,CN
-🐟 漏网之鱼,[]FINAL
+🚫 AdBlock,https://raw.githubusercontent.com/NobyDa/Script/master/Surge/AdRule.list
+🚫 AdBlock,https://git.jasuit.com/jh163888/ios_rule_script/raw/branch/master/rule/Surge/Hijacking/Hijacking.list
+▶️ YouTube,https://git.jasuit.com/jh163888/ios_rule_script/raw/branch/master/rule/Surge/YouTube/YouTube.list
+🍿 Netflix,https://git.jasuit.com/jh163888/ios_rule_script/raw/branch/master/rule/Surge/Netflix/Netflix.list
+🐰 DisneyPlus,https://git.jasuit.com/jh163888/ios_rule_script/raw/branch/master/rule/Surge/Disney/Disney.list
+💰 PayPal,https://git.jasuit.com/jh163888/ios_rule_script/raw/branch/master/rule/Surge/PayPal/PayPal.list
+📺 AppleTV,https://git.jasuit.com/jh163888/ios_rule_script/raw/branch/master/rule/Surge/AppleTV/AppleTV.list
+🍎 Apple,https://git.jasuit.com/jh163888/ios_rule_script/raw/branch/master/rule/Surge/Apple/Apple.list
+Ⓜ️ Microsoft,https://git.jasuit.com/jh163888/ios_rule_script/raw/branch/master/rule/Surge/Microsoft/Microsoft.list
+🔰 PROXY,https://git.jasuit.com/jh163888/Profiles/raw/branch/master/Surge/Ruleset/Global.list
+🎯 DIRECT,https://git.jasuit.com/jh163888/ios_rule_script/raw/branch/master/rule/Surge/Lan/Lan.list
+🎯 DIRECT,https://git.jasuit.com/jh163888/ios_rule_script/raw/branch/master/rule/Surge/China/China.list
+🎯 DIRECT,https://git.jasuit.com/jh163888/ios_rule_script/raw/branch/master/rule/Surge/ChinaIPs/ChinaIPs.list
+🎯 DIRECT,https://git.jasuit.com/jh163888/ios_rule_script/raw/branch/master/rule/Surge/PrivateTracker/PrivateTracker.list
+🎯 DIRECT,[]GEOIP,CN
+🐟 Other,[]FINAL
