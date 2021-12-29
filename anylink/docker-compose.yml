@@ -11,4 +11,3 @@ services:
     #   - ./app/conf:/app/conf
     # command: -c=/app/conf/server.toml
     restart: always
-
