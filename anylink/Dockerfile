@@ -1,6 +1,6 @@
 # web
 FROM node:lts-alpine as builder_node
-ENV VERSION 0.7.1
+ENV VERSION 0.7.2
 WORKDIR /web
 COPY ./web /web
 RUN npm install --registry=https://registry.npm.taobao.org \
@@ -34,7 +34,7 @@ COPY docker_entrypoint.sh  /app/
 
 COPY ./server/bridge-init.sh /app/
 COPY ./server/conf  /app/conf
-#COPY ./server/files  /app/conf/files
+COPY ./LICENSE  /app/LICENSE
 
 
 #TODO 本地打包时使用镜像
