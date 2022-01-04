@@ -1,4 +1,4 @@
-FROM tindy2013/subconverter:0.7.1
+FROM tindy2013/subconverter
 MAINTAINER Stille <stille@ioiox.com>
 
 ENV VERSION 0.7.1
