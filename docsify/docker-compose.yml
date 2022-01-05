@@ -1,0 +1,10 @@
+version: "3"
+services:
+  docsify:
+    image: stilleshan/docsify
+    container_name: docsify
+    ports:
+      - 3000:3000
+    volumes:
+      - ./your/docs/path:/docs
+    restart: always
