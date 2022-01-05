@@ -6,5 +6,5 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./your/docs/path:/docs
+      - /your/docs/path:/docs
     restart: always

@@ -16,12 +16,12 @@ docker run -d --name=docsify -p 3000:3000 -v /your/docs/path:/docs stilleshan/do
 
 ### 新建项目
 ```shell
-docker run -d --name=docsify -p 3000:3000 -v stilleshan/docsify
+docker run -d --name=docsify -p 3000:3000 stilleshan/docsify
 # 不挂载启动容器,初始化新文档.
 docker cp docsify:/docs .
 # 将容器内初始化的文档拷贝出来.
 ```
-后续可参考上述`现有项目`方式挂载来维护撰写文档.
+后续可参考上述`现有项目`方式挂载来维护编写文档.
 
 ### docker compose
 下载 [docker-compose.yml](https://raw.githubusercontent.com/stilleshan/dockerfiles/main/docsify/docker-compose.yml) 执行以下命令启动:
