@@ -7,4 +7,3 @@ services:
       - 3000:3000
     volumes:
       - /your/docs/path:/docs
-    restart: always

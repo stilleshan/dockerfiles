@@ -3,9 +3,10 @@ LABEL org.opencontainers.image.authors="stille@ioiox.com"
 
 WORKDIR /
 
+ADD entrypoint.sh /
+
 RUN npm i docsify-cli -g
-RUN docsify init ./docs
 
 EXPOSE 3000
 
-CMD docsify serve docs
+ENTRYPOINT ["/bin/sh", "-c", "/entrypoint.sh"]
