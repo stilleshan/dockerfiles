@@ -11,6 +11,7 @@ func TestAddDomainRecord(t *testing.T) {
 		RR:         "testaddrecord",
 		Type:       ARecord,
 		Value:      "8.8.8.8",
+		TTL:        "600"
 	}
 	response, err := client.AddDomainRecord(&addDomainRecordArgs)
 	if err == nil {

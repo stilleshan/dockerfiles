@@ -12,6 +12,7 @@ func TestUpdateDomainRecord(t *testing.T) {
 		RR:         "testupdaterecordid",
 		Value:      "8.8.8.8",
 		Type:       ARecord,
+		TTL:        "600",
 	}
 
 	addResponse, err := client.AddDomainRecord(&addDomainRecordArgs)
@@ -22,6 +23,7 @@ func TestUpdateDomainRecord(t *testing.T) {
 		RR:       addDomainRecordArgs.RR,
 		Value:    "4.4.4.4",
 		Type:     ARecord,
+		TTL:      "600",
 	}
 
 	_, err = client.UpdateDomainRecord(&updateArgs)

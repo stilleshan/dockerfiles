@@ -12,6 +12,7 @@ func TestDeleteDomainRecord(t *testing.T) {
 		RR:         "testdeleterecordid",
 		Type:       ARecord,
 		Value:      "8.8.8.8",
+		TTL:        "600",
 	}
 
 	addResponse, err := client.AddDomainRecord(&addDomainRecordArgs)

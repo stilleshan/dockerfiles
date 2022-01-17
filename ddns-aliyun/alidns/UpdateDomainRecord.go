@@ -1,6 +1,10 @@
 package dns
 
-import "github.com/denverdino/aliyungo/common"
+import (
+	"encoding/json"
+
+	"github.com/denverdino/aliyungo/common"
+)
 
 type UpdateDomainRecordArgs struct {
 	RecordId string
@@ -9,8 +13,8 @@ type UpdateDomainRecordArgs struct {
 	Value    string
 
 	//optional
-	TTL      int32
-	Priority int32
+	TTL      json.Number
+	Priority json.Number
 	Line     string
 }
 

@@ -1,6 +1,10 @@
 package dns
 
-import "github.com/denverdino/aliyungo/common"
+import (
+	"encoding/json"
+
+	"github.com/denverdino/aliyungo/common"
+)
 
 // endpoint change to 'http://alidns.aliyuncs.com' then record ttl and priority change to string
 type RecordTypeNew struct {
@@ -9,6 +13,7 @@ type RecordTypeNew struct {
 	RR         string
 	Type       string
 	Value      string
+	TTL        json.Number
 	Line       string
 	Status     string
 	Locked     bool

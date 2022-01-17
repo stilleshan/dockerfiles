@@ -1,5 +1,7 @@
 package dns
 
+import "encoding/json"
+
 //
 //you can read doc at https://docs.aliyun.com/#/pub/dns/api-reference/enum-type&record-format
 const (
@@ -20,8 +22,8 @@ type RecordType struct {
 	RR         string
 	Type       string
 	Value      string
-	TTL        int32
-	Priority   int32
+	TTL        json.Number
+	Priority   json.Number
 	Line       string
 	Status     string
 	Locked     bool
