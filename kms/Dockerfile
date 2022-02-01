@@ -8,7 +8,6 @@ RUN apk add --no-cache git make build-base && \
     make
 
 FROM alpine:latest
-MAINTAINER Stille <stille@ioiox.com>
 
 COPY --from=builder /root/vlmcsd/bin/vlmcsd /usr/bin/vlmcsd
 

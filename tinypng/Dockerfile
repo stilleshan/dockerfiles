@@ -1,5 +1,5 @@
 FROM python:3.7-alpine  
-LABEL org.opencontainers.image.authors="stille@ioiox.com"
+LABEL maintainer="Stille <stille@ioiox.com>"
 
 WORKDIR /
 

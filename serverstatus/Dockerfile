@@ -1,5 +1,5 @@
 FROM ubuntu:bionic-20200112 as builder
-MAINTAINER Stille <stille@ioiox.com>
+LABEL maintainer="Stille <stille@ioiox.com>"
 
 ENV VERSION 2.0
 WORKDIR /
@@ -11,7 +11,7 @@ RUN apt-get update && \
     cp -rf /web /usr/local/ServerStatus/
 
 FROM nginx:1.17.8
-MAINTAINER Stille <stille@ioiox.com>
+LABEL maintainer="Stille <stille@ioiox.com>"
 
 COPY --from=builder /usr/local/ServerStatus/server /ServerStatus/server/
 COPY --from=builder /usr/local/ServerStatus/web /usr/share/nginx/html/

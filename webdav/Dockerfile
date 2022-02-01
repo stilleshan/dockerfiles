@@ -1,5 +1,5 @@
 FROM alpine:3.8
-MAINTAINER Stille <stille@ioiox.com>
+LABEL maintainer="Stille <stille@ioiox.com>"
 
 ENV VERSION 4.1.0
 

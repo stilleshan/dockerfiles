@@ -1,5 +1,5 @@
 FROM alpine
-LABEL org.opencontainers.image.authors="stille@ioiox.com"
+LABEL maintainer="Stille <stille@ioiox.com>"
 
 ENV VERSION 11.5
 

@@ -1,5 +1,5 @@
 FROM tindy2013/subconverter
-MAINTAINER Stille <stille@ioiox.com>
+LABEL maintainer="Stille <stille@ioiox.com>"
 
 ENV VERSION 0.7.1
 

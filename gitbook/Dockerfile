@@ -1,5 +1,5 @@
 FROM node:10.22.0-alpine3.9
-LABEL org.opencontainers.image.authors="stille@ioiox.com"
+LABEL maintainer="Stille <stille@ioiox.com>"
 
 ENV VERSION 3.2.3
 
