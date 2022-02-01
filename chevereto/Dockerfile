@@ -8,7 +8,7 @@ RUN apk add --no-cache curl && \
     mkdir -p /extracted && \
     cd /extracted && \
     unzip /tmp/chevereto.zip  && \
-    mv "Chevereto-Free-${CHEVERETO_VERSION}/" Chevereto/
+    mv "chevereto-free-${CHEVERETO_VERSION}/" Chevereto/
 COPY settings.php /extracted/Chevereto/app/settings.php
 
 FROM php:$PHP_VERSION
