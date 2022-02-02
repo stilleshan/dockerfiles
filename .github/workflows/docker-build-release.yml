@@ -18,8 +18,8 @@ jobs:
       - name: Set tag
         id: tag
         run: |
-          if [[ -n $(cat ${{ github.event.inputs.project }}/Dockerfile | awk '{if($1~"ENV" && $2=="VERSION")print $3}') ]]; then
-            VERSION=$(cat ${{ github.event.inputs.project }}/Dockerfile | awk '{if($1~"ENV" && $2=="VERSION")print $3}')
+          if [[ -n $(cat ${{ github.event.inputs.project }}/Dockerfile | awk '{if($1~"ENV" && $2~"VERSION")print $3;exit;}') ]]; then
+            VERSION=$(cat ${{ github.event.inputs.project }}/Dockerfile | awk '{if($1~"ENV" && $2~"VERSION")print $3;exit;}')
             echo "tag=$VERSION" >> $GITHUB_ENV
           else
             echo "tag=$(date +%Y)-$(date +%m)-$(date +%d)" >> $GITHUB_ENV
