@@ -1,7 +1,7 @@
 ## selenium-firefox
 
 GitHub [stilleshan/dockerfiles](https://github.com/stilleshan/dockerfiles)  
-Docker [stilleshan/selenium-firefox](https://hub.docker.com/r/stilleshan/selenium-firefox)
+Docker [ioiox/selenium-firefox](https://hub.docker.com/r/ioiox/selenium-firefox)
 > *docker image support for X86 and ARM*
 
 ## 简介
