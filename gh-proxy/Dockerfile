@@ -1,5 +1,5 @@
-FROM stilleshan/uwsgi-nginx:python3.7
-LABEL maintainer="Sebastian Ramirez <tiangolo@gmail.com>"
+FROM ioiox/python:3.7-buster-uwsgi-nginx
+LABEL maintainer="Stille <stille@ioiox.com>"
 
 RUN pip install flask requests
 
