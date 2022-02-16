@@ -1,6 +1,6 @@
 # web
 FROM node:lts-alpine as builder_node
-ENV VERSION 0.7.2
+ENV VERSION 0.7.3
 WORKDIR /web
 COPY ./web /web
 RUN npm install --registry=https://registry.npm.taobao.org \

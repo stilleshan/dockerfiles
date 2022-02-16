@@ -102,7 +102,23 @@ func addInitData() error {
 		return err
 	}
 
-	return sess.Commit()
+	err = sess.Commit()
+	if err != nil {
+		return err
+	}
+
+	g1 := Group{
+		Name:         "ops",
+		AllowLan:     true,
+		ClientDns:    []ValData{{Val: "114.114.114.114"}},
+		RouteInclude: []ValData{{Val: "10.0.0.0/8"}},
+	}
+	err = SetGroup(&g1)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func CheckErrNotFound(err error) bool {
