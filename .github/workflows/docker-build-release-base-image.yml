@@ -54,4 +54,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_USER }}/${{ github.event.inputs.name }}:${{ github.event.inputs.tag }}
+            ${{ secrets.HARBOR_REGISTRY }}/${{ secrets.HARBOR_PROJECT_IOIOX }}/${{ github.event.inputs.name }}:${{ github.event.inputs.tag }}
