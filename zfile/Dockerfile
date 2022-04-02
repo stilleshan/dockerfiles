@@ -1,7 +1,7 @@
 FROM ioiox/alpine:3.15-openjdk-8-headless
 LABEL maintainer="Stille <stille@ioiox.com>"
 
-ENV VERSION 3.2.1
+ENV VERSION 3.2.2
 
 WORKDIR /root
 
