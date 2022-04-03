@@ -12,6 +12,7 @@ Docker [stilleshan/subconverter](https://hub.docker.com/r/stilleshan/subconverte
 - **修改时区** 镜像默认时区为 Asia/Shanghai
 
 ## 更新
+- **2022-04-03** 更新`v0.7.2`版 docker 镜像
 - **2021-12-20** 更新优化规则和分组
 - **2021-12-01** 添加`Disney+`规则分组
 - **2021-09-30** 更新`v0.7.1`版 docker 镜像
