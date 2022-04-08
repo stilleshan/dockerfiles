@@ -8,8 +8,8 @@ Docker [stilleshan/ocserv](https://hub.docker.com/r/stilleshan/ocserv)
 基于 [openconnect/ocserv](https://github.com/openconnect/ocserv) 项目的 docker 镜像.
 
 ## 更新
-**2022-03-24** 更新`1.1.6`版 docker 镜像.
-**2021-06-09** 更新`1.1.2`版 docker 镜像,新增同时支持 X86 和 ARM 架构.
+- **2022-03-24** 更新`1.1.6`版 docker 镜像.
+- **2021-06-09** 更新`1.1.2`版 docker 镜像,新增同时支持 X86 和 ARM 架构.
 
 ## 部署
 ### docker
