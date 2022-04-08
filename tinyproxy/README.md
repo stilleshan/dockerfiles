@@ -8,6 +8,7 @@ Docker [stilleshan/tinyproxy](https://hub.docker.com/r/stilleshan/tinyproxy)
 基于 [tinyproxy/tinyproxy](https://github.com/tinyproxy/tinyproxy) 项目的 docker 镜像.
 
 ## 更新
+**2022-04-08** 更新`1.11.0`版 docker 镜像.
 **2021-06-09** 更新`1.10.0`版 docker 镜像,新增同时支持 X86 和 ARM 架构.
 
 ## 部署

@@ -1,7 +1,7 @@
 FROM alpine
 LABEL maintainer="Stille <stille@ioiox.com>"
 
-ENV VERSION 1.10.0
+ENV VERSION 1.11.0
 
 RUN set -xe && \
     apk add tzdata && \
