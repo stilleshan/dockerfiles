@@ -1,0 +1,12 @@
+version: "3"
+services:
+  ghcr.io:
+    image: stilleshan/registry-proxy
+    volumes:
+      - ./data:/var/lib/registry
+      - /etc/localtime:/etc/localtime
+    ports:
+      - 5000:5000
+    environment:
+      - PROXY_REMOTE_URL=https://ghcr.io
+    restart: always
