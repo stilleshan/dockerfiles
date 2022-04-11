@@ -1,6 +1,6 @@
 version: "3"
 services:
-  ghcr.io:
+  ghcr:
     image: stilleshan/registry-proxy
     volumes:
       - ./data:/var/lib/registry
