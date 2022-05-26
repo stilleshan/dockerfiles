@@ -1,4 +1,4 @@
-# mc
+# registry-proxy
 
 GitHub [stilleshan/dockerfiles](https://github.com/stilleshan/dockerfiles)  
 Docker [stilleshan/registry-proxy](https://hub.docker.com/r/stilleshan/registry-proxy)
