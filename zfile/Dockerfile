@@ -1,7 +1,7 @@
 FROM ibm-semeru-runtimes:open-8-jre
 LABEL maintainer="Stille <stille@ioiox.com>"
 
-ENV VERSION 3.2.5
+ENV VERSION 3.2.6
 
 WORKDIR /root
 
