@@ -1,0 +1,82 @@
+// Misc.
+	$misc: (
+		z-index-base:		10000
+	);
+
+// Duration.
+	$duration: (
+		navPanel:			0.5s,
+		transition:			0.2s
+	);
+
+// Size.
+	$size: (
+		navPanel:			275px,
+		border-radius:		6px,
+		element-height:		3em,
+		element-margin:		2em,
+		container-width:	60em
+	);
+
+// Font.
+	$font: (
+		family:				('Source Sans Pro', sans-serif),
+		family-fixed:		monospace,
+		weight:				300,
+		weight-bold:		400,
+	);
+
+// Palette.
+	$palette: (
+		bg:					#f5f5f5,
+		fg:					#777,
+		fg-bold:			#646464,
+		fg-light:			#999,
+		border:				#e5e5e5,
+		border-bg:			#f8f8f8,
+		border2:			#dddddd,
+		border2-bg:			#f0f0f0,
+
+		header: (
+			bg:				#444,
+			fg:				#bbb,
+			fg-bold:		#fff,
+			fg-light:		#999
+		),
+
+		accent1: (
+			bg:				#666,
+			fg:				mix(#666, #ffffff, 25%),
+			fg-bold:		#ffffff,
+			fg-light:		mix(#666, #ffffff, 40%)
+		),
+
+		accent2: (
+			bg:				#82a8e0,
+			fg:				mix(#82a8e0, #ffffff, 25%),
+			fg-bold:		#ffffff,
+			fg-light:		mix(#82a8e0, #ffffff, 40%)
+		),
+
+		accent3: (
+			bg:				#91d4b0,
+			fg:				mix(#91d4b0, #ffffff, 25%),
+			fg-bold:		#ffffff,
+			fg-light:		mix(#91d4b0, #ffffff, 40%)
+		),
+
+		accent4: (
+			bg:				#e88792,
+			fg:				mix(#e88792, #ffffff, 25%),
+			fg-bold:		#ffffff,
+			fg-light:		mix(#e88792, #ffffff, 40%)
+		),
+
+		accent5: (
+			bg:				#e695b9,
+			fg:				mix(#e695b9, #ffffff, 25%),
+			fg-bold:		#ffffff,
+			fg-light:		mix(#e695b9, #ffffff, 40%)
+		)
+
+	);
