@@ -26,7 +26,7 @@ docker run -d \
     --name=zfile \
     --restart=always \
     -p 8080:8080 \
-    -v /root/zfile/conf:/root/.zfile \
+    -v /root/zfile/conf:/root/.zfile-v4 \
     -v /root/zfile/data:/root/zfile/data \
     stilleshan/zfile
 ```

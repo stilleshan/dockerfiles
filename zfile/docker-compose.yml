@@ -6,7 +6,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./conf:/root/.zfile
+      - ./conf:/root/.zfile-v4
       - ./data:/root/zfile/data
     restart: always
 
