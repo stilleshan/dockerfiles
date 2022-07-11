@@ -9,4 +9,3 @@ services:
       - ./conf:/root/.zfile-v4
       - ./data:/root/zfile/data
     restart: always
-
