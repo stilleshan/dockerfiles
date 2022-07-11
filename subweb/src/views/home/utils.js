@@ -5,7 +5,8 @@ const getSubLink = function (
   isShowMoreConfig,
   moreConfig
 ) {
-  let link = links.join('|');
+  let linkLst = links.split('\n');
+  let link = linkLst.join('|');
   let finalUrl =
     apiUrl + '/sub?target=' + targetType + '&url=' + encodeURIComponent(link);
   if (isShowMoreConfig) {

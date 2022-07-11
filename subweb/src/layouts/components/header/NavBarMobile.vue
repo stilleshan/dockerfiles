@@ -8,9 +8,9 @@
           :key="i"
           :href="i.link"
           :target="i.target"
-          :class="i.depth"
+          class="link depth-0"
           style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0)"
-          ><span :class="i.indent"></span>{{ i.title }}</a
+          ><span class="indent-0"></span>{{ i.title }}</a
         >
       </nav>
     </div>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { navBarItem } from './navBarItem';
+// import { navBarItem } from './navBarItem';
 export default {
   name: 'NavBarMobile',
   data() {
@@ -27,7 +27,7 @@ export default {
     };
   },
   created() {
-    this.navBarItem = navBarItem;
+    this.navBarItem = window.config.menuItem;
     document.addEventListener('click', (e) => {
       if (this.$refs.showPanel) {
         let isSelf = this.$refs.showPanel.contains(e.target);

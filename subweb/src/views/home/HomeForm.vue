@@ -2,29 +2,14 @@
   <div class="box">
     <form method="post" action="#">
       <div class="row gtr-uniform gtr-50">
-        <span v-for="(item, index) in inputs" :key="item" class="col-12 row">
-          <div
-            class="col-10 col-10-mobilep"
-            style="text-align: center; padding-top: 10px"
-          >
-            <input
-              type="text"
-              v-model.trim="item.inputValue"
-              :placeholder="item.placeholder"
-            />
-          </div>
-          <div
-            class="col-2 col-2-mobilep"
-            style="text-align: center; padding-top: 10px"
-          >
-            <input
-              type="button"
-              :value="item.buttonValue"
-              :class="item.buttonClass"
-              @click="addLinks(index)"
-            />
-          </div>
-        </span>
+        <div class="col-12">
+          <textarea
+            id="message"
+            v-model.trim="inputs.inputValue"
+            :placeholder="inputs.placeholder"
+            rows="3"
+          ></textarea>
+        </div>
         <div
           class="col-4 col-4-mobilep list"
           style="text-align: center; padding-top: 20px"
@@ -108,7 +93,7 @@
         >
           <ul class="actions">
             <li>
-              <input type="button" value="生成链接" @click="checkAll()" />
+              <input type="button" value="订阅转换" @click="checkAll()" />
             </li>
             <!-- <li><input type="reset" value="重置内容" class="alt" /></li> -->
             <li>
@@ -125,9 +110,7 @@
           <input
             type="text"
             readOnly="true"
-            :placeholder="
-              this.apiUrl + '/sub?target=' + this.targetType + '&url='
-            "
+            placeholder="点击订阅转换获取链接"
             v-model.trim="returnUrl"
           />
         </div>
@@ -172,22 +155,20 @@ export default {
       isShowMoreConfig: false,
       urls: [],
       returnUrl: '',
-      apiUrl: process.env.VUE_APP_BASE_API_URL,
+      apiUrl: window.config.apiUrl,
       manualApiUrl: '',
       isManualApi: true,
       api: 'default',
       apis: [
-        { value: 'default', text: process.env.VUE_APP_BASE_API_URL },
+        { value: 'default', text: window.config.apiUrl },
         { value: 'manual', text: '自定义后端 API 地址' },
       ],
-      inputs: [
-        {
-          buttonClass: '',
-          buttonValue: '添加',
-          inputValue: '',
-          placeholder: '订阅地址',
-        },
-      ],
+      inputs: {
+        buttonClass: '',
+        inputValue: '',
+        placeholder:
+          '多订阅链接或节点请确保每行一条\n支持手动使用"|"分割多链接或节点',
+      },
       targetType: 'clash',
       targetTypes: [
         { value: 'clash', text: 'Clash' },
@@ -223,17 +204,6 @@ export default {
     resetDialog() {
       this.dialogVisible = false;
     },
-    addLinks(index) {
-      if (index == 0) {
-        this.inputs.push({
-          buttonClass: 'alt',
-          buttonValue: '移除',
-          placeholder: '订阅地址',
-        });
-      } else {
-        this.inputs.splice(index, 1);
-      }
-    },
     selectApi(event) {
       if (event.target.value == 'manual') {
         this.isManualApi = false;
@@ -245,18 +215,13 @@ export default {
       this.targetType = event.target.value;
     },
     checkUrls() {
-      this.urls = [];
-      for (const i in this.inputs) {
-        if (utils.regexCheck(this.inputs[i].inputValue)) {
-          this.urls.push(this.inputs[i].inputValue);
-          if (Number(i) + 1 == this.inputs.length) {
-            return true;
-          }
-        } else {
-          this.dialogMessage = '请填写正确的订阅地址';
-          this.dialogVisible = true;
-          return false;
-        }
+      if (this.inputs.inputValue == '') {
+        this.dialogMessage = '请填写正确的订阅地址';
+        this.dialogVisible = true;
+        return false;
+      } else {
+        this.urls = this.inputs.inputValue;
+        return true;
       }
     },
     checkApi() {

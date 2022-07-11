@@ -1,12 +1,12 @@
 <template>
   <header id="header" class="reveal">
-    <h1><a href="/">Subconverter Web</a></h1>
+    <h1>
+      <a href="/">{{ siteName }}</a>
+    </h1>
     <nav id="nav" ref="navBar">
       <ul>
-        <li v-for="i in navBarItem" :key="i" :class="i.style">
-          <a :href="i.link" :class="i.class" :target="i.target">{{
-            i.title
-          }}</a>
+        <li v-for="i in navBarItem" :key="i">
+          <a :href="i.link" :target="i.target">{{ i.title }}</a>
         </li>
       </ul>
     </nav>
@@ -14,16 +14,18 @@
 </template>
 
 <script>
-import { navBarItem } from './navBarItem';
+// import { navBarItem } from './navBarItem';
 export default {
   name: 'NavBar',
   data() {
     return {
       navBarItem: [],
+      siteName: '',
     };
   },
   created() {
-    this.navBarItem = navBarItem;
+    this.navBarItem = window.config.menuItem;
+    this.siteName = window.config.siteName;
   },
 };
 </script>
