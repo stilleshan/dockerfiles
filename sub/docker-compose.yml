@@ -1,0 +1,10 @@
+version: "3"
+services:
+  subconverter:
+    image: stilleshan/sub
+    container_name: sub
+    ports:
+      - 18080:80
+    volumes:
+      - ./conf:/usr/share/nginx/html/conf
+    restart: always

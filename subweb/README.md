@@ -46,7 +46,10 @@ docker run -d --name subweb --restart always \
 访问 `http://127.0.0.1:18080`  
 > *推荐使用 nginx 反向代理部署*
 
+### subweb + subconverter 合并进阶版
+详情查看 [stilleshan/sub](https://github.com/stilleshan/dockerfiles/tree/main/sub)
 
 ## 链接
-- [GitHub - stilleshan/subweb](https://github.com/stilleshan/subweb)
-- [GitHub - stilleshan/subconverter](https://github.com/stilleshan/subconverter)
+- [stilleshan/sub](https://github.com/stilleshan/dockerfiles/tree/main/sub)
+- [stilleshan/subweb](https://github.com/stilleshan/subweb)
+- [stilleshan/subconverter](https://github.com/stilleshan/subconverter)

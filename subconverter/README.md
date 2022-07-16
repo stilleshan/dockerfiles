@@ -16,6 +16,7 @@ Docker [stilleshan/subconverter](https://hub.docker.com/r/stilleshan/subconverte
 *`前后端示例,可以直接使用.`*
 
 ## 更新
+- **2022-07-16** 新增 [stilleshan/sub](https://github.com/stilleshan/dockerfiles/tree/main/sub) subweb + subconverter 合并进阶版.
 - **2022-07-04** 新增 [stilleshan/subweb](https://github.com/stilleshan/subweb) 前端项目.
 - **2022-04-03** 更新`v0.7.2`版 docker 镜像
 - **2021-12-20** 更新优化规则和分组
@@ -36,7 +37,11 @@ docker run  -d --name=subconverter --restart=always -p 25500:25500 stilleshan/su
 docker-compose up -d
 ```
 
+### subweb + subconverter 合并进阶版
+详情查看 [stilleshan/sub](https://github.com/stilleshan/dockerfiles/tree/main/sub)
+
 ## 链接
-- [GitHub - stilleshan/subweb](https://github.com/stilleshan/subweb)
-- [GitHub - stilleshan/subconverter](https://github.com/stilleshan/subconverter)
-- [GitHub - tindy2013/subconverter](https://github.com/tindy2013/subconverter)
+- [stilleshan/sub](https://github.com/stilleshan/dockerfiles/tree/main/sub)
+- [stilleshan/subweb](https://github.com/stilleshan/subweb)
+- [stilleshan/subconverter](https://github.com/stilleshan/subconverter)
+- [tindy2013/subconverter](https://github.com/tindy2013/subconverter)
