@@ -1,9 +1,9 @@
 FROM ioiox/php-nginx:7.4-alpine
 LABEL maintainer="sudo@dov.moe"
 
-ENV INSTALL=true
-ENV MODIFY=false
-ENV VERSION=2.0.3
+ENV INSTALL true
+ENV MODIFY false
+ENV VERSION 2.0.3
 
 WORKDIR /
 
