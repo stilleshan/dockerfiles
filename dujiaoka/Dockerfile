@@ -1,5 +1,4 @@
-# FROM webdevops/php-nginx:7.4-alpine # ⬅️ X86_64  ⬇️ ARM64
-FROM ioiox/php-nginx:7.4-alpine-arm64
+FROM ioiox/php-nginx:7.4-alpine
 LABEL maintainer="sudo@dov.moe"
 
 ENV INSTALL=true
