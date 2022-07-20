@@ -1,0 +1,14 @@
+{{ docker.from("php", "7.4-alpine") }}
+
+{{ environment.web() }}
+{{ environment.webPhp() }}
+{{ environment.nginx() }}
+
+{{ docker.copy('conf/', '/opt/docker/') }}
+
+RUN set -x \
+    {{ nginx.alpine() }} \
+    {{ provision.runBootstrap() }} \
+    {{ docker.cleanup() }}
+
+{{ docker.expose('80 443') }}
