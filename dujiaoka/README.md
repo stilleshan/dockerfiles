@@ -13,7 +13,14 @@ Docker [stilleshan/dujiaoka](https://hub.docker.com/r/stilleshan/dujiaoka)
 
 > *本项目基于现有的 [Apocalypsor/dujiaoka-docker](https://github.com/Apocalypsor/dujiaoka-docker) 项目重新制作支持 ARM64 架构镜像，你也可以参考下文作者博客链接部署。*
 
+## 示例
+https://shop.ioiox.xyz
+
 ## 部署
+更详细的图文教程请访问我的博客：  
+[docker 部署 dujiaoka 独角数卡自动售货系统 支持 X86 和 ARM 架构](https://www.ioiox.com/archives/159.html)
+
+
 ### 准备配置文件
 ```shell
 mkdir dujiaoka && cd dujiaoka
@@ -85,3 +92,4 @@ docker-compose up -d
 ## 链接
 - [Apocalypsor/dujiaoka-docker](https://github.com/Apocalypsor/dujiaoka-docker)
 - [如何优雅地搭建自己的发卡站](https://blog.dov.moe/posts/49102/)
+- [docker 部署 dujiaoka 独角数卡自动售货系统 支持 X86 和 ARM 架构](https://www.ioiox.com/archives/159.html)
