@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  web:
+    image: stilleshan/dujiaoka
+    environment:
+        # - INSTALL=false
+        - INSTALL=true
+        # - MODIFY=true
+    volumes:
+      - ./env.conf:/dujiaoka/.env
+      - ./uploads:/dujiaoka/public/uploads
+      - ./storage:/dujiaoka/storage
+    ports:
+      - 56789:80
+    restart: always
+ 
+  db:
+    image: mariadb:focal
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=YOUR_PASSWORD
+      - MYSQL_DATABASE=dujiaoka
+      - MYSQL_USER=dujiaoka
+      - MYSQL_PASSWORD=YOUR_PASSWORD
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  redis:
+    image: redis:alpine
+    restart: always
+    volumes:
+      - ./redis:/data
