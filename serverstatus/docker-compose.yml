@@ -1,0 +1,14 @@
+version: "3"
+services:
+  serverstatus:
+    image: stilleshan/serverstatus
+    container_name: serverstatus
+    ports:
+      - 8888:80
+      - 35601:35601
+    volumes:
+      # - ./web:/usr/share/nginx/html
+      - ./config.json:/ServerStatus/server/config.json
+    environment:
+      TZ: Asia/Shanghai
+    restart: always
