@@ -21,7 +21,7 @@ sed -i '$d' /etc/nginx/conf.d/default.conf
 sed -i '$d' /etc/nginx/conf.d/default.conf
 sed -i '$d' /etc/nginx/conf.d/default.conf
 cat >> /etc/nginx/conf.d/default.conf <<EOF
-    location /sub {
+    location ~* /(sub|render|getruleset|surge2clash|getprofile) {
         proxy_redirect off;
         proxy_pass http://127.0.0.1:25500;
     }
