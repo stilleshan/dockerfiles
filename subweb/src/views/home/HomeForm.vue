@@ -106,13 +106,23 @@
             </li>
           </ul>
         </div>
-        <div class="col-12" style="text-align: center; padding-top: 20px">
+        <div class="col-10" style="text-align: center; padding-top: 20px">
           <input
             type="text"
             readOnly="true"
             placeholder="点击订阅转换获取链接"
             v-model.trim="returnUrl"
           />
+        </div>
+        <div
+          class="col-2 col-2-mobilep"
+          style="text-align: center; padding-top: 20px"
+        >
+          <ul class="actions">
+            <li>
+              <input type="button" value="复制" @click="toCopy()" />
+            </li>
+          </ul>
         </div>
       </div>
     </form>
@@ -256,6 +266,28 @@ export default {
     checkAll() {
       if (this.checkUrls() && this.checkApi()) {
         this.getFinalUrl();
+      }
+    },
+    toCopy() {
+      if (!this.returnUrl) {
+        this.dialogMessage = '内容为空,请先订阅转换.';
+        this.dialogVisible = true;
+      } else {
+        var copyInput = document.createElement('input');
+        copyInput.setAttribute('value', this.returnUrl);
+        document.body.appendChild(copyInput);
+        copyInput.select();
+        try {
+          var copyed = document.execCommand('copy');
+          if (copyed) {
+            document.body.removeChild(copyInput);
+            this.dialogMessage = '复制成功';
+            this.dialogVisible = true;
+          }
+        } catch {
+          this.dialogMessage = '复制失败，请检查浏览器兼容.';
+          this.dialogVisible = true;
+        }
       }
     },
   },
