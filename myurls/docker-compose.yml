@@ -1,0 +1,22 @@
+version: "3"
+services:
+  myurls:
+    image: stilleshan/myurls:latest
+    # container_name: myurls
+    environment:
+      - MYURLS_DOMAIN=s.ops.ci
+      - MYURLS_TTL=365
+    volumes:
+      - ./data/myurls/logs:/app/logs    
+    ports:
+      - "8002:8002"
+    depends_on:
+      - redis
+    restart: always
+
+  redis:
+    image: redis:latest
+    # container_name: myurls-redis
+    volumes:
+      - ./data/redis:/data
+    restart: always
