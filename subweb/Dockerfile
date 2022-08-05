@@ -1,8 +1,9 @@
 FROM node:14-alpine AS build
 LABEL maintainer="Stille <stille@ioiox.com>"
 
+RUN apk add --update git
+RUN git clone https://github.com/stilleshan/subweb /app
 WORKDIR /app
-COPY . /app
 RUN npm install
 RUN npm run build
 
