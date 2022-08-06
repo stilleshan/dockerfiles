@@ -7,6 +7,9 @@ Docker [stilleshan/myurls](https://hub.docker.com/r/stilleshan/myurls)
 ## 简介
 基于 [CareyWang/MyUrls](https://github.com/CareyWang/MyUrls) 短链接程序的修改版容器镜像,主要解决方便的自定义前端域名以及 ARM64 架构的支持.
 
+## 示例
+[https://s.ops.ci](https://s.ops.ci)  
+
 ## 部署
 ### docker compose
 > 由于需要搭配`redis`使用,建议使用`docker compose`部署.

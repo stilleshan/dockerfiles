@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>MyUrls</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="icon" href="./favicon.ico">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/stilleshan/dockerfiles/myurls/public/css/main.css" />
+  <script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+  <script src="https://unpkg.com/axios@0.19.2/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+</head>
+
+<body class="is-preload">
+  <div id="app">
+    <div id="page-wrapper">
+
+      <!-- Header -->
+      <header id="header">
+        <h1><a href="index.html">MyUrls</a></h1>
+        <nav id="nav">
+          <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="https://sub.ops.ci" target="_blank">订阅转换</a></li>
+            <li><a href="https://github.com/stilleshan/dockerfiles/tree/main/myurls" target="_blank">GitHub</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <!-- Main -->
+      <section id="main" class="container medium">
+        <header>
+          <h2>MyUrls</h2>
+          <p>一个轻量级短链接服务</p>
+        </header>
+        <div class="box">
+          <form method="post" action="#">
+            <div class="row gtr-50 gtr-uniform">
+              <div class="col-9 col-8-mobilep">
+                <input type="text" ref="long" v-model="longUrl" value="" placeholder="输入长链接" />
+              </div>
+              <div class="col-3 col-4-mobilep">
+                <ul class="actions special">
+                  <li><input type="button" value="生成链接" @click="doShort()" /></li>
+                </ul>
+              </div>
+              <div class="col-9 col-8-mobilep">
+                <input type="text" v-model="shortUrl" value="" placeholder="生成短链接" />
+              </div>
+              <div class="col-3 col-4-mobilep">
+                <ul class="actions special">
+                  <li><input type="button" value="复制链接" @click="toCopy(shortUrl)" /></li>
+                </ul>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <ul class="copyright">
+          <li>&copy; <a href="https://github.com/stilleshan/dockerfiles/tree/main/myurls" target="_blank">MyUrls</a>.
+            All rights reserved.</li>
+        </ul>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    const backend = 'https://s.ops.ci'
+
+    let app = new Vue({
+      el: "#app",
+      data() {
+        return {
+          longUrl: '',
+          shortUrl: '',
+        }
+      },
+      methods: {
+        showDialog(title, msg, level) {
+          this.$confirm(title, msg, {
+            showCancelButton: false,
+            showConfirmButton: false,
+            type: level,
+            center: true,
+            callback: action => {
+              // console.log('显示成功')
+            }
+          })
+        },
+        doShort() {
+          let re = new RegExp('http(s*)://[^\s]*')
+          if (re.exec(this.longUrl) === null) {
+            this.showDialog('请输入正确格式的长链接', '错误', 'error');
+            return
+          }
+          let data = new FormData();
+          data.append("longUrl", btoa(this.longUrl));
+          data.append("shortKey", this.shortUrl.indexOf('http') < 0 ? this.shortUrl : '');
+          axios.post(backend + '/short', data, {
+            header: {
+              "Content-Type": "application/form-data; charset=utf-8"
+            }
+          })
+            .then(res => {
+              if (res.data.Code === 1 && res.data.ShortUrl !== "") {
+                this.shortUrl = res.data.ShortUrl;
+                this.toCopy(this.shortUrl)
+              } else {
+                this.showDialog('短链接获取失败', '错误', 'error');
+              }
+            })
+            .catch(() => {
+              this.showDialog('短链接获取失败', '错误', 'error');
+            });
+        },
+        toCopy(url) {
+          if (!url) {
+            this.showDialog('复制失败 内容为空', '错误', 'error');
+          } else {
+            var copyInput = document.createElement('input');
+            copyInput.setAttribute('value', url);
+            document.body.appendChild(copyInput);
+            copyInput.select();
+            try {
+              var copyed = document.execCommand('copy');
+              if (copyed) {
+                document.body.removeChild(copyInput);
+                this.showDialog('复制成功 ' + this.shortUrl, '成功', 'success');
+              }
+            } catch {
+              this.showDialog('复制失败', '错误', 'error');
+            }
+          }
+        },
+      },
+    })
+  </script>
+  <script src="https://cdn.jsdelivr.net/gh/stilleshan/dockerfiles/myurls/public/js/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/stilleshan/dockerfiles/myurls/public/js/jquery.dropotron.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/stilleshan/dockerfiles/myurls/public/js/jquery.scrollex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/stilleshan/dockerfiles/myurls/public/js/browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/stilleshan/dockerfiles/myurls/public/js/breakpoints.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/stilleshan/dockerfiles/myurls/public/js/util.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/stilleshan/dockerfiles/myurls/public/js/main.js"></script>
+</body>
+
+</html>

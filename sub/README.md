@@ -18,7 +18,7 @@ docker run -d --name subweb --restart always \
   -v /PATH/subweb/conf:/usr/share/nginx/html/conf \
   stilleshan/sub
 ```
-修改挂载路径,根据需求自行修改`config.js`中的相关配置.
+修改挂载路径,根据需求自行修改`conf/config.js`中的相关配置.
 
 推荐使用`nginx`配置域名反向代理至`18080`端口.
 
@@ -26,8 +26,8 @@ docker run -d --name subweb --restart always \
 
 ### docker compose
 docker compose 已包含 myurl 短链接:
-- 如无需部署 myurls 服务,可删除`12-32`行,将默认使用本站短链接.也可以修改`config.js`来使用其他`myurls`短链接服务.
-- 如需自行部署 myurls 服务,需修改`docker-compose.yml`中的`MYURLS_DOMAIN`,以及`config.js`中的`shortUrl`,注意请严格按照示例格式填写.
+- 如无需部署 myurls 服务,可删除`12-32`行,将默认使用本站短链接.也可以修改`conf/config.js`来使用其他`myurls`短链接服务.
+- 如需自行部署 myurls 服务,需修改`docker-compose.yml`中的`MYURLS_DOMAIN`,以及`conf/config.js`中的`shortUrl`,注意请严格按照示例格式填写.
 - myurls 服务需要单独配置 nginx 反代以及证书,可以参考`myurls.conf`配置.注意需要修改`域名`,`证书路径`,`日志路径`.
 下载 [docker-compose.yml](https://raw.githubusercontent.com/stilleshan/dockerfiles/main/sub/docker-compose.yml) 执行以下命令启动:
 ```shell

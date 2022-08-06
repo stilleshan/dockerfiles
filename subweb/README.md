@@ -25,7 +25,7 @@ docker run -d --name subweb --restart always \
 
 ### docker 自定义版 + 短链接版
 自定义版可以挂载配置文件来修改`API 地址`,`短链接地址`,`站点名称`,`导航链接`.  
-参考以下命令,修改本地挂载路径,启动容器后会生成`config.js`配置文件,更改后刷新生效.
+参考以下命令,修改本地挂载路径,启动容器后会生成`conf/config.js`配置文件,更改后刷新生效.
 
 ```shell
 docker run -d --name subweb --restart always \
