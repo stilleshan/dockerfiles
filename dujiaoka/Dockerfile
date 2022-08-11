@@ -3,15 +3,15 @@ LABEL maintainer="stille@ioiox.com"
 
 ENV INSTALL true
 ENV MODIFY false
-ENV VERSION 2.0.3
+ENV VERSION 2.0.4
 
 WORKDIR /
 
-RUN wget https://github.com/assimon/dujiaoka/releases/download/${VERSION}/${VERSION}-Antibody.tar.gz \
-  && tar zxvf ${VERSION}-Antibody.tar.gz \
-  && rm -rf ${VERSION}-Antibody.tar.gz && mv dujiaoka_build dujiaoka
+# RUN wget https://github.com/assimon/dujiaoka/releases/download/${VERSION}/${VERSION}-Antibody.tar.gz \
+#   && tar zxvf ${VERSION}-Antibody.tar.gz \
+#   && rm -rf ${VERSION}-Antibody.tar.gz && mv dujiaoka_build dujiaoka
 
-# RUN git clone https://github.com/assimon/dujiaoka
+RUN git clone https://github.com/assimon/dujiaoka
 
 COPY ./conf/default.conf /opt/docker/etc/nginx/vhost.conf
 COPY ./conf/dujiao.conf /opt/docker/etc/supervisor.d/
