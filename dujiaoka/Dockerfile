@@ -3,7 +3,7 @@ LABEL maintainer="stille@ioiox.com"
 
 ENV INSTALL true
 ENV MODIFY false
-ENV VERSION 2.0.4
+ENV VERSION 2.0.5
 
 WORKDIR /
 

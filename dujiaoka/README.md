@@ -4,6 +4,7 @@ Docker [stilleshan/dujiaoka](https://hub.docker.com/r/stilleshan/dujiaoka)
 > *docker image support for X86 and ARM*
 
 ## 更新
+- **2022-08-24** 更新`2.0.5`版 docker 镜像,同时支持 X86 和 ARM 架构.
 - **2022-07-19** 更新`2.0.4`版 docker 镜像,同时支持 X86 和 ARM 架构.
 - **2022-07-19** 更新`2.0.3`版 docker 镜像,同时支持 X86 和 ARM 架构.
 
