@@ -8,6 +8,7 @@ Docker [stilleshan/zfile](https://hub.docker.com/r/stilleshan/zfile)
 基于 [zhaojun1998/zfile](https://github.com/zhaojun1998/zfile) 项目的 docker 镜像.
 
 ## 更新
+- **2022-08-28** 更新`4.1.0`版 docker 镜像.
 - **2022-08-17** 更新`4.0.10`版 docker 镜像.
 - **2022-08-12** 更新`4.0.9`版 docker 镜像.
 - **2022-08-07** 更新`4.0.8`版 docker 镜像.
