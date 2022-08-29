@@ -1,0 +1,8 @@
+version: "3.3"
+services: 
+  web:
+    image: stilleshan/linux-command
+    container_name: linux-command
+    ports:
+      - 8888:80
+    restart: always
