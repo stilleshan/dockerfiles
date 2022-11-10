@@ -8,6 +8,7 @@ Docker [stilleshan/anylink](https://hub.docker.com/r/stilleshan/anylink)
 基于 [bjdgyc/anylink](https://github.com/bjdgyc/anylink) 项目的 docker 镜像.
 
 ## 更新
+- **2022-11-10** 更新`0.9.1-beta1`版 docker 镜像.
 - **2022-07-04** 更新`0.8.1`版 docker 镜像.
 - **2022-04-07** 更新`0.7.4`版 docker 镜像.
 - **2022-02-16** 更新`0.7.3`版 docker 镜像.

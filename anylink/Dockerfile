@@ -1,6 +1,6 @@
 # web
-FROM node:lts-alpine as builder_node
-ENV VERSION 0.8.1
+FROM node:16.17.1-alpine3.15 as builder_node
+ENV VERSION 0.9.1
 WORKDIR /web
 COPY ./web /web
 RUN yarn install \
@@ -8,7 +8,7 @@ RUN yarn install \
     && ls /web/ui
 
 # server
-FROM golang:1.17-alpine as builder_golang
+FROM golang:1.18-alpine as builder_golang
 #TODO 本地打包时使用镜像
 ENV GOPROXY=https://goproxy.io
 ENV GOOS=linux
@@ -47,4 +47,3 @@ EXPOSE 443 8800
 
 #CMD ["/app/anylink"]
 ENTRYPOINT ["/app/docker_entrypoint.sh"]
-
