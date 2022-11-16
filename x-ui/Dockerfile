@@ -1,11 +1,19 @@
-FROM ubuntu:21.10
+FROM golang:latest AS builder
 LABEL maintainer="Stille <stille@ioiox.com>"
 
-ENV VERSION 0.3.1
+ENV VERSION 0.3.2
 
-COPY Shanghai /usr/share/zoneinfo/Asia/
+WORKDIR /root
+COPY x-ui .
+RUN go build main.go
 
-RUN apt -y update && apt -y install curl && \
-    curl -O https://raw.githubusercontent.com/sprov065/x-ui/master/install.sh && chmod +x install.sh&& ./install.sh
-
-CMD [ "sh", "-c", "/usr/local/x-ui/x-ui"]
+FROM debian:11-slim
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends -y ca-certificates \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ENV TZ=Asia/Shanghai
+WORKDIR /root
+COPY --from=builder  /root/main /root/x-ui
+COPY x-ui/bin/. /root/bin/.
+VOLUME [ "/etc/x-ui" ]
+CMD [ "./x-ui" ]

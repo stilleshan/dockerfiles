@@ -5,9 +5,10 @@ Docker [stilleshan/x-ui](https://hub.docker.com/r/stilleshan/x-ui)
 > *docker image support for X86 and ARM*
 
 ## 简介
-基于 [sprov065/x-ui](https://github.com/sprov065/x-ui) 项目的 docker 镜像.
+基于 [vaxilu/x-ui](https://github.com/vaxilu/x-ui) 项目的 docker 镜像.
 
 ## 更新
+- **2022-11-16** 更新`0.3.2`版 docker 镜像,同时支持 X86 和 ARM 架构.
 - **2021-08-01** 更新`0.3.1`版 docker 镜像,同时支持 X86 和 ARM 架构.
 
 ## 注意
@@ -79,5 +80,5 @@ docker-compose up -d
 访问`http://服务器IP:54321`使用账号`admin`密码`admin`登录.注意需开放相关端口防火墙,并及时修改账号密码.
 
 ## 参考
-GitHub [sprov065/x-ui](https://github.com/sprov065/x-ui)
+GitHub [vaxilu/x-ui](https://github.com/vaxilu/x-ui)
 
