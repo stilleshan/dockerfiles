@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  x-ui:
+  xui:
     image: stilleshan/x-ui
     container_name: x-ui
     volumes:
