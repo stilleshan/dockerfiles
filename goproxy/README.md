@@ -8,6 +8,7 @@ Docker [stilleshan/goproxy](https://hub.docker.com/r/stilleshan/goproxy)
 基于 [snail007/goproxy](https://github.com/snail007/goproxy) 项目的 docker 镜像.
 
 ## 更新
+- **2022-11-22** 更新`12.3`版 docker 镜像.
 - **2022-10-16** 更新`12.2`版 docker 镜像.
 - **2022-09-01** 更新`12.1`版 docker 镜像.
 - **2022-08-31** 更新`12.0`版 docker 镜像.
