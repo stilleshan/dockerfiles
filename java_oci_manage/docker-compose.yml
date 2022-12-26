@@ -1,0 +1,12 @@
+version: "3"
+services: 
+  oci:
+    image: stilleshan/java_oci_manage
+    container_name: rrr
+    tty: true
+    ports:
+      - 9527:9527
+    volumes:
+      - ./config/client_config:/app/client_config
+      - ./config/key.pem:/app/key.pem
+    restart: always
