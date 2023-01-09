@@ -11,4 +11,3 @@ services:
       - |
           /proxy http -p :11111 &
           /proxy socks -p :22222
-
