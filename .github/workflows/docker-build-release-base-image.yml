@@ -34,7 +34,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD_IOIOX }}
 
       - name: Build and push to docker hub
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v3.1.1
         with:
           context: base/${{ github.event.inputs.name }}/${{ github.event.inputs.tag }}
           platforms: linux/amd64,linux/arm64

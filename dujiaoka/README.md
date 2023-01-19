@@ -10,6 +10,13 @@ Docker [stilleshan/dujiaoka](https://hub.docker.com/r/stilleshan/dujiaoka)
 > *本项目基于现有的 [Apocalypsor/dujiaoka-docker](https://github.com/Apocalypsor/dujiaoka-docker) 项目重新制作支持 ARM64 架构镜像，你也可以参考下文作者博客链接部署。*
 
 
+## 更新
+- **2023-01-19** 更新`2.0.6`版 docker 镜像,同时支持 X86 和 ARM 架构.
+- **2022-08-24** 更新`2.0.5`版 docker 镜像,同时支持 X86 和 ARM 架构.
+- **2022-07-19** 更新`2.0.4`版 docker 镜像,同时支持 X86 和 ARM 架构.
+- **2022-07-19** 更新`2.0.3`版 docker 镜像,同时支持 X86 和 ARM 架构.
+
+
 ## 示例
 https://shop.ioiox.xyz
 
