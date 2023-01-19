@@ -40,7 +40,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push to docker hub
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v3.1.1
         with:
           context: ${{ github.event.inputs.project }}
           platforms: linux/amd64,linux/arm64
