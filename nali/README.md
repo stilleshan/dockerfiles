@@ -10,8 +10,8 @@ Docker [stilleshan/nali](https://hub.docker.com/r/stilleshan/nali)
 ## docker
 由于镜像不含 IP 数据库,所以建议后台启动容器服务,挂载目录,每次使用将会自动下载和保留 IP 数据库到本地,方便后续多次使用.
 ```shell
-docker run -d --name nali --restart always \
-  -v $PWD/conf:/root/.nali \
+docker run -itd --name nali --restart always \
+  -v /root/nali:/root/.local\
   stilleshan/nali
 ```
 
