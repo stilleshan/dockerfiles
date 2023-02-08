@@ -1,0 +1,26 @@
+version: "3"
+services:
+  db:
+    image: mariadb:focal
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=CHANGE_YOUR_PASSWORD
+      - MYSQL_DATABASE=epusdt
+      - MYSQL_USER=epusdt
+      - MYSQL_PASSWORD=CHANGE_YOUR_PASSWORD
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  redis:
+    image: redis:alpine
+    restart: always
+    volumes:
+      - ./redis:/data
+
+  epusdt:
+    image: stilleshan/epusdt
+    restart: always
+    volumes:
+      - ./epusdt.conf:/app/.env
+    ports:
+      - 8000:8000
