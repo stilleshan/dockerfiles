@@ -1,6 +1,6 @@
 #/bin/sh
 if [ ! -f /usr/share/nginx/html/conf/config.js ]; then
-  cp /app/config.js /usr/share/nginx/html/conf
+  cp /app/conf/config.js /usr/share/nginx/html/conf
 fi
 
 if [ $API_URL ]; then
