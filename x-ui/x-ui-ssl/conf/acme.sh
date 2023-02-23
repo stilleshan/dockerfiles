@@ -20,15 +20,15 @@ acme (){
     /root/.acme.sh/acme.sh --issue $* --dns ${DNSAPI} -d ${DOMAIN} -d \*.${DOMAIN}
     rm -rf /acme.sh/ca
     rm -rf /acme.sh/http.header
-    if [ -f /acme.sh/${DOMAIN}/fullchain.cer ] && [ -f /acme.sh/${DOMAIN}/${DOMAIN}.key ]; then
+    if [ -f /acme.sh/${DOMAIN}_ecc/fullchain.cer ] && [ -f /acme.sh/${DOMAIN}_ecc/${DOMAIN}.key ]; then
         rm -rf /ssl/${DOMAIN}.cer
         rm -rf /ssl/${DOMAIN}.key
-        cp /acme.sh/${DOMAIN}/fullchain.cer /ssl/${DOMAIN}.cer
-        cp /acme.sh/${DOMAIN}/${DOMAIN}.key /ssl/${DOMAIN}.key
-        mv /acme.sh/${DOMAIN} /acme.sh/${DOMAIN}-$(date +%Y)-$(date +%m)-$(date +%d)-${RANDOM}
+        cp /acme.sh/${DOMAIN}_ecc/fullchain.cer /ssl/${DOMAIN}.cer
+        cp /acme.sh/${DOMAIN}_ecc/${DOMAIN}.key /ssl/${DOMAIN}.key
+        mv /acme.sh/${DOMAIN}_ecc /acme.sh/${DOMAIN}-$(date +%Y)-$(date +%m)-$(date +%d)-${RANDOM}
     else
         echo "证书申请失败,已退出脚本,请重新尝试."
-        rm -rf /acme.sh/${DOMAIN}
+        rm -rf /acme.sh/${DOMAIN}_ecc
         exit 1
     fi
 }
