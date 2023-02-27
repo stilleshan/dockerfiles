@@ -7,6 +7,7 @@
 🍎 Apple`select`[]🎯 DIRECT`[]🔰 PROXY`.*
 Ⓜ️ Microsoft`select`[]🎯 DIRECT`[]🔰 PROXY`.*
 💰 PayPal`select`[]🎯 DIRECT`[]🔰 PROXY`.*
+🤖 OpenAI`select`[]🎯 DIRECT`[]🔰 PROXY`.*
 🚫 AdBlock`select`[]🎯 DIRECT`[]🔰 PROXY`[]REJECT`.*
 🐟 Other`select`[]🎯 DIRECT`[]🔰 PROXY`.*
 🎯 DIRECT`select`[]DIRECT
