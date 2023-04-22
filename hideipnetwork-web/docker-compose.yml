@@ -1,0 +1,8 @@
+version: "3"
+services:
+  browser:
+    image: stilleshan/hideipnetwork-web
+    container_name: hideipnetwork
+    restart: always
+    ports:
+      - 56559:56559
