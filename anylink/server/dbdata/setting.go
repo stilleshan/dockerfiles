@@ -21,8 +21,9 @@ type SettingSmtp struct {
 }
 
 type SettingAuditLog struct {
-	LifeDay   int    `json:"life_day"`
-	ClearTime string `json:"clear_time"`
+	AuditInterval int    `json:"audit_interval"`
+	LifeDay       int    `json:"life_day"`
+	ClearTime     string `json:"clear_time"`
 }
 
 type SettingOther struct {
@@ -48,7 +49,6 @@ func SettingSessAdd(sess *xorm.Session, data interface{}) error {
 	v, _ := json.Marshal(data)
 	s := &Setting{Name: name, Data: v}
 	_, err := sess.InsertOne(s)
-
 	return err
 }
 

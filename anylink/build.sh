@@ -20,8 +20,9 @@ cd $cpath/web
 #npm install
 #npm run build
 
-yarn install
+yarn install --registry=https://registry.npmmirror.com
 yarn run build
+
 
 RETVAL $?
 
@@ -43,7 +44,7 @@ rm -rf $deploy ${deploy}.tar.gz
 mkdir $deploy
 
 cp -r server/anylink $deploy
-cp -r server/bridge-init.sh $deploy
+#cp -r server/bridge-init.sh $deploy
 cp -r server/conf $deploy
 
 cp -r systemd $deploy

@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/bjdgyc/anylink/base"
+	"github.com/bjdgyc/anylink/dbdata"
 	"github.com/bjdgyc/anylink/pkg/utils"
 	"github.com/bjdgyc/anylink/sessdata"
 )
@@ -14,7 +15,7 @@ import (
 func LinkCstp(conn net.Conn, bufRW *bufio.ReadWriter, cSess *sessdata.ConnSession) {
 	base.Debug("LinkCstp connect ip:", cSess.IpAddr, "user:", cSess.Username, "rip:", conn.RemoteAddr())
 	defer func() {
-		base.Debug("LinkCstp return", cSess.IpAddr)
+		base.Debug("LinkCstp return", cSess.Username, cSess.IpAddr)
 		_ = conn.Close()
 		cSess.Close()
 	}()
@@ -33,14 +34,14 @@ func LinkCstp(conn net.Conn, bufRW *bufio.ReadWriter, cSess *sessdata.ConnSessio
 		// 设置超时限制
 		err = conn.SetReadDeadline(utils.NowSec().Add(dead))
 		if err != nil {
-			base.Error("SetDeadline: ", err)
+			base.Error("SetDeadline: ", cSess.Username, err)
 			return
 		}
 		// hdata := make([]byte, BufferSize)
 		pl := getPayload()
 		n, err = bufRW.Read(pl.Data)
 		if err != nil {
-			base.Error("read hdata: ", err)
+			base.Error("read hdata: ", cSess.Username, err)
 			return
 		}
 
@@ -55,7 +56,8 @@ func LinkCstp(conn net.Conn, bufRW *bufio.ReadWriter, cSess *sessdata.ConnSessio
 			// do nothing
 			// base.Debug("recv keepalive", cSess.IpAddr)
 		case 0x05: // DISCONNECT
-			base.Debug("DISCONNECT", cSess.IpAddr)
+			cSess.UserLogoutCode = dbdata.UserLogoutClient
+			base.Debug("DISCONNECT", cSess.Username, cSess.IpAddr)
 			return
 		case 0x03: // DPD-REQ
 			// base.Debug("recv DPD-REQ", cSess.IpAddr)
@@ -64,13 +66,28 @@ func LinkCstp(conn net.Conn, bufRW *bufio.ReadWriter, cSess *sessdata.ConnSessio
 				return
 			}
 		case 0x04:
-			// log.Println("recv DPD-RESP")
+		// log.Println("recv DPD-RESP")
+		case 0x08: // decompress
+			if cSess.CstpPickCmp == nil {
+				continue
+			}
+			dst := getByteFull()
+			nn, err := cSess.CstpPickCmp.Uncompress(pl.Data[8:], *dst)
+			if err != nil {
+				putByte(dst)
+				base.Error("cstp decompress error", err, nn)
+				continue
+			}
+			binary.BigEndian.PutUint16(pl.Data[4:6], uint16(nn))
+			pl.Data = append(pl.Data[:8], (*dst)[:nn]...)
+			putByte(dst)
+			fallthrough
 		case 0x00: // DATA
 			// 获取数据长度
 			dataLen = binary.BigEndian.Uint16(pl.Data[4:6]) // 4,5
 			// 修复 cstp 数据长度溢出报错
 			if 8+dataLen > BufferSize {
-				base.Error("recv error dataLen", dataLen)
+				base.Error("recv error dataLen", cSess.Username, dataLen)
 				continue
 			}
 			// 去除数据头
@@ -87,7 +104,7 @@ func LinkCstp(conn net.Conn, bufRW *bufio.ReadWriter, cSess *sessdata.ConnSessio
 
 func cstpWrite(conn net.Conn, bufRW *bufio.ReadWriter, cSess *sessdata.ConnSession) {
 	defer func() {
-		base.Debug("cstpWrite return", cSess.IpAddr)
+		base.Debug("cstpWrite return", cSess.Username, cSess.IpAddr)
 		_ = conn.Close()
 		cSess.Close()
 	}()
@@ -110,16 +127,31 @@ func cstpWrite(conn net.Conn, bufRW *bufio.ReadWriter, cSess *sessdata.ConnSessi
 		}
 
 		if pl.PType == 0x00 {
-			// 获取数据长度
-			l := len(pl.Data)
-			// 先扩容 +8
-			pl.Data = pl.Data[:l+8]
-			// 数据后移
-			copy(pl.Data[8:], pl.Data)
-			// 添加头信息
-			copy(pl.Data[:8], plHeader)
-			// 更新头长度
-			binary.BigEndian.PutUint16(pl.Data[4:6], uint16(l))
+			isCompress := false
+			if cSess.CstpPickCmp != nil && len(pl.Data) > base.Cfg.NoCompressLimit {
+				dst := getByteFull()
+				size, err := cSess.CstpPickCmp.Compress(pl.Data, (*dst)[8:])
+				if err == nil && size < len(pl.Data) {
+					copy((*dst)[:8], plHeader)
+					binary.BigEndian.PutUint16((*dst)[4:6], uint16(size))
+					(*dst)[6] = 0x08
+					pl.Data = append(pl.Data[:0], (*dst)[:size+8]...)
+					isCompress = true
+				}
+				putByte(dst)
+			}
+			if !isCompress {
+				// 获取数据长度
+				l := len(pl.Data)
+				// 先扩容 +8
+				pl.Data = pl.Data[:l+8]
+				// 数据后移
+				copy(pl.Data[8:], pl.Data)
+				// 添加头信息
+				copy(pl.Data[:8], plHeader)
+				// 更新头长度
+				binary.BigEndian.PutUint16(pl.Data[4:6], uint16(l))
+			}
 		} else {
 			pl.Data = append(pl.Data[:0], plHeader...)
 			// 设置头类型
@@ -128,7 +160,7 @@ func cstpWrite(conn net.Conn, bufRW *bufio.ReadWriter, cSess *sessdata.ConnSessi
 
 		n, err = conn.Write(pl.Data)
 		if err != nil {
-			base.Error("write err", err)
+			base.Error("write err", cSess.Username, err)
 			return
 		}
 

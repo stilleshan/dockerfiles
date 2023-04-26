@@ -8,19 +8,21 @@ import (
 	"net"
 	"reflect"
 	"regexp"
+	"strconv"
 	"time"
 
 	"github.com/go-ldap/ldap"
 )
 
 type AuthLdap struct {
-	Addr       string `json:"addr"`
-	Tls        bool   `json:"tls"`
-	BindName   string `json:"bind_name"`
-	BindPwd    string `json:"bind_pwd"`
-	BaseDn     string `json:"base_dn"`
-	SearchAttr string `json:"search_attr"`
-	MemberOf   string `json:"member_of"`
+	Addr        string `json:"addr"`
+	Tls         bool   `json:"tls"`
+	BindName    string `json:"bind_name"`
+	BindPwd     string `json:"bind_pwd"`
+	BaseDn      string `json:"base_dn"`
+	ObjectClass string `json:"object_class"`
+	SearchAttr  string `json:"search_attr"`
+	MemberOf    string `json:"member_of"`
 }
 
 func init() {
@@ -39,13 +41,16 @@ func (auth AuthLdap) checkData(authData map[string]interface{}) error {
 		return errors.New("LDAP的服务器地址(含端口)填写有误")
 	}
 	if auth.BindName == "" {
-		return errors.New("LDAP的管理员账号不能为空")
+		return errors.New("LDAP的管理员 DN不能为空")
 	}
 	if auth.BindPwd == "" {
 		return errors.New("LDAP的管理员密码不能为空")
 	}
 	if auth.BaseDn == "" || !ValidateDN(auth.BaseDn) {
 		return errors.New("LDAP的Base DN填写有误")
+	}
+	if auth.ObjectClass == "" {
+		return errors.New("LDAP的用户对象类填写有误")
 	}
 	if auth.SearchAttr == "" {
 		return errors.New("LDAP的用户唯一ID不能为空")
@@ -93,9 +98,12 @@ func (auth AuthLdap) checkUser(name, pwd string, g *Group) error {
 	}
 	err = l.Bind(auth.BindName, auth.BindPwd)
 	if err != nil {
-		return fmt.Errorf("%s LDAP 管理员账号或密码填写有误 %s", name, err.Error())
+		return fmt.Errorf("%s LDAP 管理员 DN或密码填写有误 %s", name, err.Error())
 	}
-	filterAttr := "(objectClass=person)"
+	if auth.ObjectClass == "" {
+		auth.ObjectClass = "person"
+	}
+	filterAttr := "(objectClass=" + auth.ObjectClass + ")"
 	filterAttr += "(" + auth.SearchAttr + "=" + name + ")"
 	if auth.MemberOf != "" {
 		filterAttr += "(memberOf:=" + auth.MemberOf + ")"
@@ -117,10 +125,40 @@ func (auth AuthLdap) checkUser(name, pwd string, g *Group) error {
 		}
 		return fmt.Errorf("LDAP发现 %s 用户，存在多个账号", name)
 	}
+	err = parseEntries(sr)
+	if err != nil {
+		return fmt.Errorf("LDAP %s 用户 %s", name, err.Error())
+	}
 	userDN := sr.Entries[0].DN
 	err = l.Bind(userDN, pwd)
 	if err != nil {
 		return fmt.Errorf("%s LDAP 登入失败，请检查登入的账号或密码 %s", name, err.Error())
+	}
+	return nil
+}
+
+func parseEntries(sr *ldap.SearchResult) error {
+	for _, attr := range sr.Entries[0].Attributes {
+		switch attr.Name {
+		case "shadowExpire":
+			// -1 启用, 1 停用, >1 从1970-01-01至到期日的天数
+			val, _ := strconv.ParseInt(attr.Values[0], 10, 64)
+			if val == -1 {
+				return nil
+			}
+			if val == 1 {
+				return fmt.Errorf("账号已停用")
+			}
+			if val > 1 {
+				expireTime := time.Unix(val*86400, 0)
+				t := time.Date(expireTime.Year(), expireTime.Month(), expireTime.Day(), 23, 59, 59, 0, time.Local)
+				if t.Before(time.Now()) {
+					return fmt.Errorf("账号已过期(过期日期: %s)", t.Format("2006-01-02"))
+				}
+				return nil
+			}
+			return fmt.Errorf("账号shadowExpire值异常: %d", val)
+		}
 	}
 	return nil
 }

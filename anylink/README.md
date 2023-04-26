@@ -7,17 +7,6 @@ Docker [stilleshan/anylink](https://hub.docker.com/r/stilleshan/anylink)
 ## 简介
 基于 [bjdgyc/anylink](https://github.com/bjdgyc/anylink) 项目的 docker 镜像.
 
-## 更新
-- **2022-11-10** 更新`0.9.1-beta1`版 docker 镜像.
-- **2022-07-04** 更新`0.8.1`版 docker 镜像.
-- **2022-04-07** 更新`0.7.4`版 docker 镜像.
-- **2022-02-16** 更新`0.7.3`版 docker 镜像.
-- **2021-12-31** 更新`0.7.2`版 docker 镜像.
-- **2021-12-29** 更新`0.7.1`版 docker 镜像.
-- **2021-08-26** 更新`0.6.2`版 docker 镜像.
-- **2021-08-02** 更新`0.5.1`版 docker 镜像.
-- **2021-07-05** 更新`0.4.2`版 docker 镜像.
-- **2021-06-09** 更新`0.3.3`版 docker 镜像,新增同时支持 X86 和 ARM 架构.
 
 ## 部署
 ### docker

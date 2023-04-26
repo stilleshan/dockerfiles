@@ -2,7 +2,7 @@ package admin
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 
@@ -59,7 +59,7 @@ func UserIpMapDetail(w http.ResponseWriter, r *http.Request) {
 func UserIpMapSet(w http.ResponseWriter, r *http.Request) {
 	_ = r.ParseForm()
 
-	body, err := ioutil.ReadAll(r.Body)
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		RespError(w, RespInternalErr, err)
 		return
@@ -80,6 +80,8 @@ func UserIpMapSet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// sessdata.IpAllSet(v)
+
 	RespSucess(w, nil)
 }
 
@@ -93,11 +95,20 @@ func UserIpMapDel(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := dbdata.IpMap{Id: id}
-	err := dbdata.Del(&data)
+	var data dbdata.IpMap
+	err := dbdata.One("Id", id, &data)
 	if err != nil {
 		RespError(w, RespInternalErr, err)
 		return
 	}
+
+	err = dbdata.Del(&data)
+	if err != nil {
+		RespError(w, RespInternalErr, err)
+		return
+	}
+
+	// sessdata.IpAllDel(&data)
+
 	RespSucess(w, nil)
 }

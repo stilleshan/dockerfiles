@@ -74,6 +74,20 @@ func GetGroupNames() []string {
 	return names
 }
 
+func GetGroupNamesNormal() []string {
+	var datas []Group
+	err := FindWhere(&datas, 0, 0, "status=1")
+	if err != nil {
+		base.Error(err)
+		return nil
+	}
+	var names []string
+	for _, v := range datas {
+		names = append(names, v.Name)
+	}
+	return names
+}
+
 func GetGroupNamesIds() []GroupNameId {
 	var datas []Group
 	err := Find(&datas, 0, 0)
@@ -208,6 +222,21 @@ func SetGroup(g *Group) error {
 		err = Add(g)
 	}
 
+	return err
+}
+
+func GroupAuthLogin(name, pwd string, authData map[string]interface{}) error {
+	g := &Group{Auth: authData}
+	authType := g.Auth["type"].(string)
+	if _, ok := authRegistry[authType]; !ok {
+		return errors.New("未知的认证方式: " + authType)
+	}
+	auth := makeInstance(authType).(IUserAuth)
+	err := auth.checkData(g.Auth)
+	if err != nil {
+		return err
+	}
+	err = auth.checkUser(name, pwd, g)
 	return err
 }
 

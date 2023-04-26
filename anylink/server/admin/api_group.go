@@ -2,7 +2,7 @@ package admin
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 
@@ -79,7 +79,7 @@ func GroupDetail(w http.ResponseWriter, r *http.Request) {
 }
 
 func GroupSet(w http.ResponseWriter, r *http.Request) {
-	body, err := ioutil.ReadAll(r.Body)
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		RespError(w, RespInternalErr, err)
 		return
@@ -117,4 +117,31 @@ func GroupDel(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	RespSucess(w, nil)
+}
+
+func GroupAuthLogin(w http.ResponseWriter, r *http.Request) {
+	type AuthLoginData struct {
+		Name string                 `json:"name"`
+		Pwd  string                 `json:"pwd"`
+		Auth map[string]interface{} `json:"auth"`
+	}
+
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		RespError(w, RespInternalErr, err)
+		return
+	}
+	defer r.Body.Close()
+	v := &AuthLoginData{}
+	err = json.Unmarshal(body, &v)
+	if err != nil {
+		RespError(w, RespInternalErr, err)
+		return
+	}
+	err = dbdata.GroupAuthLogin(v.Name, v.Pwd, v.Auth)
+	if err != nil {
+		RespError(w, RespInternalErr, err)
+		return
+	}
+	RespSucess(w, "ok")
 }

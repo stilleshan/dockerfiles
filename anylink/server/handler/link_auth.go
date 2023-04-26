@@ -7,6 +7,7 @@ import (
 	"io"
 	"net"
 	"net/http"
+	"net/http/httputil"
 	"strings"
 	"text/template"
 
@@ -18,11 +19,16 @@ import (
 var profileHash = ""
 
 func LinkAuth(w http.ResponseWriter, r *http.Request) {
+	// TODO 调试信息输出
+	if base.GetLogLevel() == base.LogLevelTrace {
+		hd, _ := httputil.DumpRequest(r, true)
+		base.Trace("LinkAuth: ", string(hd))
+	}
 	// 判断anyconnect客户端
 	userAgent := strings.ToLower(r.UserAgent())
 	xAggregateAuth := r.Header.Get("X-Aggregate-Auth")
 	xTranscendVersion := r.Header.Get("X-Transcend-Version")
-	if !((strings.Contains(userAgent, "anyconnect") || strings.Contains(userAgent, "openconnect")) &&
+	if !((strings.Contains(userAgent, "anyconnect") || strings.Contains(userAgent, "openconnect") || strings.Contains(userAgent, "anylink")) &&
 		xAggregateAuth == "1" && xTranscendVersion == "1") {
 		w.WriteHeader(http.StatusForbidden)
 		fmt.Fprintf(w, "error request")
@@ -43,7 +49,6 @@ func LinkAuth(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// fmt.Printf("%+v \n", cr)
-
 	setCommonHeader(w)
 	if cr.Type == "logout" {
 		// 退出删除session信息
@@ -56,7 +61,7 @@ func LinkAuth(w http.ResponseWriter, r *http.Request) {
 
 	if cr.Type == "init" {
 		w.WriteHeader(http.StatusOK)
-		data := RequestData{Group: cr.GroupSelect, Groups: dbdata.GetGroupNames()}
+		data := RequestData{Group: cr.GroupSelect, Groups: dbdata.GetGroupNamesNormal()}
 		tplRequest(tpl_request, w, data)
 		return
 	}
@@ -66,16 +71,32 @@ func LinkAuth(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-
+	// 用户活动日志
+	ua := dbdata.UserActLog{
+		Username:        cr.Auth.Username,
+		GroupName:       cr.GroupSelect,
+		RemoteAddr:      r.RemoteAddr,
+		Status:          dbdata.UserAuthSuccess,
+		DeviceType:      cr.DeviceId.DeviceType,
+		PlatformVersion: cr.DeviceId.PlatformVersion,
+	}
 	// TODO 用户密码校验
 	err = dbdata.CheckUser(cr.Auth.Username, cr.Auth.Password, cr.GroupSelect)
 	if err != nil {
 		base.Warn(err)
+		ua.Info = err.Error()
+		ua.Status = dbdata.UserAuthFail
+		dbdata.UserActLogIns.Add(ua, userAgent)
+
 		w.WriteHeader(http.StatusOK)
-		data := RequestData{Group: cr.GroupSelect, Groups: dbdata.GetGroupNames(), Error: "用户名或密码错误"}
+		data := RequestData{Group: cr.GroupSelect, Groups: dbdata.GetGroupNamesNormal(), Error: "用户名或密码错误"}
+		if base.Cfg.DisplayError {
+			data.Error = err.Error()
+		}
 		tplRequest(tpl_request, w, data)
 		return
 	}
+	dbdata.UserActLogIns.Add(ua, userAgent)
 	// if !ok {
 	//	w.WriteHeader(http.StatusOK)
 	//	data := RequestData{Group: cr.GroupSelect, Groups: base.Cfg.UserGroups, Error: "请先激活用户"}
@@ -87,29 +108,38 @@ func LinkAuth(w http.ResponseWriter, r *http.Request) {
 	sess := sessdata.NewSession("")
 	sess.Username = cr.Auth.Username
 	sess.Group = cr.GroupSelect
-	sess.MacAddr = strings.ToLower(cr.MacAddressList.MacAddress)
+	oriMac := cr.MacAddressList.MacAddress
 	sess.UniqueIdGlobal = cr.DeviceId.UniqueIdGlobal
+	sess.UserAgent = userAgent
+	sess.DeviceType = ua.DeviceType
+	sess.PlatformVersion = ua.PlatformVersion
+	sess.RemoteAddr = r.RemoteAddr
 	// 获取客户端mac地址
-	macHw, err := net.ParseMAC(sess.MacAddr)
+	sess.UniqueMac = true
+	macHw, err := net.ParseMAC(oriMac)
 	if err != nil {
 		var sum [16]byte
 		if sess.UniqueIdGlobal != "" {
 			sum = md5.Sum([]byte(sess.UniqueIdGlobal))
 		} else {
 			sum = md5.Sum([]byte(sess.Token))
+			sess.UniqueMac = false
 		}
 		macHw = sum[0:5] // 5个byte
 		macHw = append([]byte{0x02}, macHw...)
 		sess.MacAddr = macHw.String()
 	}
 	sess.MacHw = macHw
+	// 统一macAddr的格式
+	sess.MacAddr = macHw.String()
+
 	other := &dbdata.SettingOther{}
 	_ = dbdata.SettingGet(other)
 	rd := RequestData{SessionId: sess.Sid, SessionToken: sess.Sid + "@" + sess.Token,
 		Banner: other.Banner, ProfileHash: profileHash}
 	w.WriteHeader(http.StatusOK)
 	tplRequest(tpl_complete, w, rd)
-	base.Debug("login", cr.Auth.Username)
+	base.Debug("login", cr.Auth.Username, userAgent)
 }
 
 const (
