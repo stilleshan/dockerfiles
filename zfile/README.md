@@ -59,11 +59,11 @@ docker-compose up -d
 访问以下安装地址进行安装配置.如使用本地存储,路径请填写`/root/zfile/data`.同时可以配置反向代理使用域名访问.
 > 可以自行修改挂载命令来配置本地存储路径.
 ```shell
-http://IP:8080/#/install
+http://IP:8080/install
 # 安装地址
-http://IP:8080/#/main
+http://IP:8080/
 # 前端页面
-http://IP:8080/#/admin
+http://IP:8080/admin
 # 管理页面
 ```
 
