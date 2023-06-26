@@ -1,4 +1,4 @@
-FROM golang:1.15-alpine AS build
+FROM golang:1.20-alpine AS build
 ARG TARGETARCH
 RUN apk add --update git
 RUN git clone https://github.com/CareyWang/MyUrls /app
