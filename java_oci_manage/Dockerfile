@@ -1,7 +1,7 @@
 FROM openjdk:20-ea-11-jdk-slim-bullseye
 LABEL maintainer="Stille <stille@ioiox.com>"
 
-ENV VERSION 4.0
+ENV VERSION 4.0.2
 
 RUN apt-get update && apt-get install -y wget procps
 
