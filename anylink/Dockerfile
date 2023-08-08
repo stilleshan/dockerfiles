@@ -1,6 +1,6 @@
 # web
 FROM node:16.17.1-alpine3.15 as builder_node
-ENV VERSION 0.9.3
+ENV VERSION 0.9.4
 WORKDIR /web
 COPY ./web /web
 RUN yarn install \
