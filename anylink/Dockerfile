@@ -18,8 +18,8 @@ COPY --from=builder_node /web/ui  /anylink/server/ui
 
 #TODO 本地打包时使用镜像
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
-RUN apk add --no-cache git gcc musl-dev
-RUN cd /anylink/server;go mod tidy;go build -o anylink -ldflags "-X main.CommitId=$(git rev-parse HEAD)" \
+RUN apk add --no-cache git gcc musl-dev curl
+RUN cd /anylink/server;go mod tidy;go build -o anylink -ldflags "-X main.CommitId=$(curl -s "https://api.github.com/repos/bjdgyc/anylink/git/refs/tags/v${VERSION}" | grep sha | head -n 1 | cut -d '"' -f 4)" \
     && /anylink/server/anylink tool -v
 
 # anylink
