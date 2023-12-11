@@ -1,4 +1,4 @@
-FROM node:14-alpine as builder
+FROM node:alpine3.18 as builder
 LABEL maintainer="Stille <stille@ioiox.com>"
 
 WORKDIR /
@@ -7,7 +7,7 @@ RUN apk add --no-cache git
 RUN git clone https://github.com/jaywcjlove/linux-command --depth=1 \
     && cd linux-command \
     && npm install \
-    && npm build \
+    && npm run build \
     && npm run dash
 
 FROM nginx:stable-alpine

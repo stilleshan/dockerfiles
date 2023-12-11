@@ -1,6 +1,6 @@
 FROM golang:alpine as builder
 
-ENV VERSION 0.8.0
+ENV VERSION 0.8.1
 
 RUN apk add --no-cache make git
 RUN git clone --depth 1 https://github.com/zu1k/nali /nali-src
