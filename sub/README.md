@@ -13,9 +13,9 @@ Docker [stilleshan/sub](https://hub.docker.com/r/stilleshan/sub)
 ### docker
 > 已更新支持短链接,如需要更换短链接或自己部署,请使用以下 docker compose 部署.
 ```shell
-docker run -d --name subweb --restart always \
+docker run -d --name sub --restart always \
   -p 18080:80 \
-  -v /PATH/subweb/conf:/usr/share/nginx/html/conf \
+  -v /PATH/sub/conf:/usr/share/nginx/html/conf \
   stilleshan/sub
 ```
 修改挂载路径,根据需求自行修改`conf/config.js`中的相关配置.
