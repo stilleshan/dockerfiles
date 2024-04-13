@@ -1,7 +1,7 @@
 FROM tindy2013/subconverter
 LABEL maintainer="Stille <stille@ioiox.com>"
 
-ENV VERSION 0.8.1
+ENV VERSION 0.9.0
 
 WORKDIR /base
 RUN apk add tzdata && \
