@@ -16,7 +16,7 @@ Docker [stilleshan/myurls](https://hub.docker.com/r/stilleshan/myurls)
 
 - 下载 [docker-compose.yml](https://raw.githubusercontent.com/stilleshan/dockerfiles/main/myurls/docker-compose.yml)
 - 修改`MYURLS_DOMAIN`为你的域名
-- 修改`MYURLS_TTL`为短链接有效期(单位:天)
+- 修改`MYURLS_PROTO`为你的协议
 ```shell
 docker-compose up -d
 ```

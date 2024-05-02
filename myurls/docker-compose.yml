@@ -5,11 +5,11 @@ services:
     # container_name: myurls
     environment:
       - MYURLS_DOMAIN=s.ops.ci
-      - MYURLS_TTL=365
+      - MYURLS_PROTO=https
     volumes:
       - ./data/myurls/logs:/app/logs    
     ports:
-      - "8002:8002"
+      - "8080:8080"
     depends_on:
       - redis
     restart: always
