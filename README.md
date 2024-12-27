@@ -5,7 +5,7 @@
 
 当前项目已全部构建 AMD64 和 ARM64 架构 docker 镜像，可以直接访问 [Docker Hub](https://hub.docker.com/u/stilleshan) 官方镜像仓库直接使用。
 
-如果国内网络访问不畅，可以搭配 [ghproxy.com](https://ghproxy.com) 和 [dockerproxy.com](https://dockerproxy.com) 代理使用。
+如果国内网络访问不畅，可以搭配 [GitHub Proxy](https://ghproxy.link) 和 [Docker Proxy](https://dockerproxy.link) 代理使用。
 
 **同时欢迎推荐或提交 PR 来贡献更多更好用的项目**
 
@@ -18,7 +18,7 @@
 ## 打赏 & 推广
 👍 推荐自用晚高峰 4K/8K 稳定的 IPLC 机场，欢迎使用我的 [推广链接](https://st1.hosbb.com/#/register?code=gBXmmXyG) 注册。
 
-🛍️ 欢迎访问 [我的小店](https://shop.ioiox.xyz)，不定期上架一些乱七八糟的东西。
+🛍️ 欢迎访问 [我的小店](https://shop.ioiox.com)，不定期上架一些乱七八糟的东西。
 
 💰 如果我的项目帮助到你，欢迎随意打赏。
 

@@ -18,7 +18,7 @@ Docker [stilleshan/dujiaoka](https://hub.docker.com/r/stilleshan/dujiaoka)
 
 
 ## 示例
-https://shop.ioiox.xyz
+https://shop.ioiox.com
 
 
 ## 部署
