@@ -1,0 +1,10 @@
+services:
+  vnstat-dashboard:
+    # container_name: vnstat-dashboard
+    image: stilleshan/vnstat-dashboard-kshitiz-b
+    privileged: true
+    ports:
+        - 12345:8050
+    volumes:
+        - /var/lib/vnstat:/var/lib/vnstat
+    restart: always
