@@ -40,27 +40,87 @@ const TABS = [
   { id: 'Yearly', label: 'Yearly', icon: TrendingUp }
 ];
 
-const INTERFACES = [
-  { id: 'eth0', label: 'Ethernet (eth0)', icon: Network },
-  { id: 'wlan0', label: 'Wifi (wlan0)', icon: Network },
-  { id: 'docker0', label: 'Docker (docker0)', icon: Server },
-  { id: 'tailscale0', label: 'Tailscale (tailscale0)', icon: Network }
-];
-
 function App() {
-  const [selected, setSelected] = useState('eth0');
-  const [tab, setTab] = useState('Summary');
+
+  const DEFAULT_TAB = 'Summary';
+  const CONFIG_KEY = 'vnstat_config';
+  const LAST_TAB_KEY = 'vnstat_last_tab';
+
+  // Config state (source of truth)
+  const [config, setConfig] = useState(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem(CONFIG_KEY));
+      return stored || { mode: 'last', defaultTab: 'Summary' };
+    } catch {
+      return { mode: 'last', defaultTab: 'Summary' };
+    }
+  });
+
+  // Tab state (derived from config initially)
+  const [tab, setTab] = useState(() => {
+    if (config.mode === 'fixed') return config.defaultTab;
+    return localStorage.getItem(LAST_TAB_KEY) || DEFAULT_TAB;
+  });
+
+  const [selected, setSelected] = useState('');
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [interfaces, setInterfaces] = useState([]);
+  const [ifaceLoading, setIfaceLoading] = useState(true);
+
+  // Persist config
+  useEffect(() => {
+    localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
+  }, [config]);
+
+  // Persist last opened tab
+  useEffect(() => {
+    localStorage.setItem(LAST_TAB_KEY, tab);
+  }, [tab]);
+
+  // React to config changes (MAIN FIX)
+  useEffect(() => {
+    if (config.mode === 'fixed') {
+      setTab(config.defaultTab);
+    } else if (config.mode === 'last') {
+      const last = localStorage.getItem(LAST_TAB_KEY);
+      if (last) setTab(last);
+      else setTab(DEFAULT_TAB);
+    }
+  }, [config]);
 
   useEffect(() => {
+    fetch('/api/interfaces')
+      .then(res => res.json())
+      .then(data => {
+        if (data && Array.isArray(data.interfaces)) {
+          setInterfaces(data.interfaces);
+        }
+      })
+      .catch(err => console.error('Failed to fetch interfaces:', err))
+      .finally(() => setIfaceLoading(false));
+  }, []);
+
+  useEffect(() => {
+    if (interfaces.length === 0) return;
+    if (!selected || !interfaces.includes(selected)) {
+      setSelected(interfaces[0]);
+    }
+  }, [interfaces, selected]);
+
+  useEffect(() => {
+    if (!selected) return;
     setLoading(true);
     fetch(`/api/vnstat/${selected}`)
       .then(res => res.json())
       .then(setData)
+      .catch(err => {
+        console.error('Failed to fetch vnstat data:', err);
+        setData(null);
+      })
       .finally(() => setLoading(false));
-  }, [selected]);
 
+  }, [selected]);
 
   const ifaceInfo = data && data.interfaces ? data.interfaces[0] : null;
   const traffic = ifaceInfo ? ifaceInfo.traffic : null;
@@ -161,24 +221,64 @@ function App() {
 
         </div>
 
-        {/* Interface Selector */}
-        <div className="mb-8">
-          <label className="block text-sm font-medium text-gray-300 mb-3">
-            Select Network Interface
-          </label>
-          <div className="flex flex-row items-center gap-4 justify-center">
-            <Network className="h-5 w-5 text-gray-400" />
-            <select
-              value={selected}
-              onChange={e => setSelected(e.target.value)}
-              className="w-full max-w-xs bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 pr-10 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all appearance-none"
-            >
-              {INTERFACES.map(iface => (
-                <option key={iface.id} value={iface.id}>
-                  {iface.label}
-                </option>
-              ))}
-            </select>
+        {/* Interface + View Controls */}
+        <div className="mb-8 flex justify-center w-full">
+          <div className="flex items-center justify-center gap-4 border border-gray-700 rounded-lg bg-gray-900 px-3 py-1">
+
+            {/* Interface Section */}
+            <div className="flex items-center gap-3 px-5 py-3">
+              <Network className="h-4 w-4 text-gray-500 shrink-0" />
+              <span className="text-[11px] uppercase tracking-wider font-medium text-gray-500 whitespace-nowrap">
+                Interface
+              </span>
+              {ifaceLoading ? (
+                <span className="text-gray-400 text-sm">Loading…</span>
+              ) : (
+                <select
+                  value={selected}
+                  onChange={e => setSelected(e.target.value)}
+                  className="bg-gray-800 border border-gray-700 rounded-md px-3 py-1.5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  disabled={ifaceLoading || interfaces.length === 0}
+                >
+                  {interfaces.length > 0 ? (
+                    interfaces.map(iface => (
+                      <option key={iface} value={iface}>{iface}</option>
+                    ))
+                  ) : (
+                    <option disabled>No interfaces found</option>
+                  )}
+                </select>
+              )}
+            </div>
+
+            {/* View Section */}
+            <div className="flex items-center gap-3 px-5 py-3">
+              <Clock className="h-4 w-4 text-gray-500 shrink-0" />
+              <span className="text-[11px] uppercase tracking-wider font-medium text-gray-500 whitespace-nowrap">
+                View
+              </span>
+              <select
+                value={config.mode}
+                onChange={e => setConfig(prev => ({ ...prev, mode: e.target.value }))}
+                className="bg-gray-800 border border-gray-700 rounded-md px-3 py-1.5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+              >
+                <option value="last">Last view</option>
+                <option value="fixed">Fixed view</option>
+              </select>
+
+              {config.mode === 'fixed' && (
+                <select
+                  value={config.defaultTab}
+                  onChange={e => setConfig(prev => ({ ...prev, defaultTab: e.target.value }))}
+                  className="bg-gray-800 border border-gray-700 rounded-md px-3 py-1.5 text-sm text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+                >
+                  {TABS.map(t => (
+                    <option key={t.id} value={t.id}>{t.label}</option>
+                  ))}
+                </select>
+              )}
+            </div>
+
           </div>
         </div>
 

@@ -1,12 +1,16 @@
 # =====================
 # STAGE 1: Build React frontend
 # =====================
-FROM node:18 AS frontend-build
+FROM alpine:3.21.3 AS frontend-build
+
+RUN apk add --no-cache nodejs npm python3 build-base git
 
 WORKDIR /app/frontend
 
+# Better caching: copy lockfile/package.json first
 COPY frontend/package*.json ./
-RUN npm install
+# Use npm ci for reproducible, faster, clean installs
+RUN npm ci
 
 COPY frontend/ ./
 RUN npm run build
@@ -14,25 +18,20 @@ RUN npm run build
 # =====================
 # STAGE 2: Set up Node backend with built frontend
 # =====================
-FROM node:18
+FROM alpine:3.21.3
 
-WORKDIR /app
+# Runtime deps only
+RUN apk add --no-cache nodejs npm vnstat
 
-# Copy backend files
-COPY backend/ ./backend
-
-# Copy backend's package.json
-COPY backend/package*.json ./backend/
 WORKDIR /app/backend
-RUN npm install
 
-# Copy frontend build
+# Better caching for backend too
+COPY backend/package*.json ./
+RUN npm ci --omit=dev
+
+# Copy the rest of backend and the built frontend
+COPY backend/ ./
 COPY --from=frontend-build /app/frontend/build /app/frontend-build
-
-# Install vnstat
-RUN apt-get update && \
-    apt-get install -y vnstat && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV FRONTEND_DIR=frontend-build
 ENV PORT=8050
