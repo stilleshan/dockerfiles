@@ -15,7 +15,7 @@ docker run -d \
     --name=vnstat-dashboard \
     --privileged \
     --restart=always \
-    -p 12345:8050 \
+    --network=host \
     -v /var/lib/vnstat:/var/lib/vnstat \
     -e TZ=Asia/Shanghai \
     stilleshan/vnstat-dashboard-kshitiz-b
@@ -26,6 +26,9 @@ docker run -d \
 ```shell
 docker-compose up -d
 ```
+
+## 使用
+访问 `http://<服务器IP地址>:8050` 即可看到 vnStat Dashboard 的界面.
 
 ## 参考
 参考以下原项目备份镜像:
